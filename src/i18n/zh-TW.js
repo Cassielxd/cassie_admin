@@ -82,15 +82,7 @@ t.home = {}
 t.home.desc = {}
 t.home.desc.title = '項目介紹'
 t.home.desc.list = [
-  '人人微服務平台，是基於Spring Cloud打造的微服務平台，為企業提供一站式微服務解決方案',
-  '基於最新的Spring Cloud Alibaba、Spring Cloud Gateway、Spring Boot、SpringSecurity OAuth2.0、Sentinel、Skywalking、Seata、Nacos、Mybatis、Element開發',
-  '代碼風格優雅簡潔、通俗易懂，且符合《阿里巴巴Java開發手冊》規範要求，可作為企業代碼規範',
-  '優秀的菜單功能權限，前端可靈活控制頁面及按鈕的展示，後端可對未授權的請求進行攔截',
-  '優秀的數據權限管理，只需增加相應註解，無需其他任何代碼，即可實現數據過濾，達到數據權限目的',
-  '靈活的角色權限管理，新增角色時，角色權限只能是創建者權限的子集，可有效防止權限越權',
-  '靈活的日誌管理，可查看登錄日誌、操作日誌、異常日誌，方便審計及BUG定位',
-  '靈活的國際化配置，目前已支持簡體中文、繁體中文、English，如需增加新語言，只需增加新語言[i18n]文件即可',
-  '靈活的前端動態路由，新增頁面無需修改路由文件，也可在頁面動態新增tab標籤'
+  ''
 ]
 
 /* 模塊 */
@@ -235,7 +227,7 @@ t.oss.qiniuSecretKeyTips = '七牛SecretKey'
 t.oss.qiniuBucketName = '空間名'
 t.oss.qiniuBucketNameTips = '七牛存儲空間名'
 t.oss.aliyunDomain = '域名'
-t.oss.aliyunDomainTips = '阿里雲綁定的域名，如：http://cdn.renren.io'
+t.oss.aliyunDomainTips = '阿里雲綁定的域名'
 t.oss.aliyunPrefix = '路徑前綴'
 t.oss.aliyunPrefixTips = '不設置默認為空'
 t.oss.aliyunEndPoint = 'EndPoint'
@@ -271,9 +263,9 @@ t.oss.qcloudRegionHongkong = '香港'
 t.oss.qcloudRegionToronto = '多倫多'
 t.oss.qcloudRegionFrankfurt = '法蘭克福'
 t.oss.localDomain = '域名'
-t.oss.localDomainTips = '綁定的域名，如：http://cdn.renren.io'
+t.oss.localDomainTips = '綁定的域名'
 t.oss.fastdfsDomain = '域名'
-t.oss.fastdfsDomainTips = '綁定的域名，如：http://cdn.renren.io'
+t.oss.fastdfsDomainTips = '綁定的域名'
 t.oss.localPrefix = '路徑前綴'
 t.oss.localPrefixTips = '不設置默認為空'
 t.oss.localPath = '存儲目錄'

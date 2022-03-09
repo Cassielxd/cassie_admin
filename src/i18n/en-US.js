@@ -3,7 +3,7 @@ const t = {}
 t.loading = 'Loading...'
 
 t.brand = {}
-t.brand.lg = 'Renren Cloud'
+t.brand.lg = 'Cassie'
 t.brand.mini = 'RC'
 
 t.add = 'Add'
@@ -76,21 +76,13 @@ t.login.username = 'Username'
 t.login.password = 'Password'
 t.login.captcha = 'Verification Code'
 t.login.demo = 'Demo'
-t.login.copyright = 'Renren'
+t.login.copyright = 'Cassie'
 
 t.home = {}
 t.home.desc = {}
 t.home.desc.title = 'Project introduction'
 t.home.desc.list = [
-  'RENREN CLOUD is a micro service platform based on Spring Cloud, providing enterprises with one-stop micro service solutions',
-  'Based on the latest development of Spring Cloud Alibaba, Spring Cloud Gateway, Spring Boot, SpringSecurity OAuth2.0, Sentinel, Skywalking, Seata, Nacos, Mybatis, Element',
-  'The code style is elegant and simple, easy to understand, and meets the specification requirements of "alibaba Java development manual", which can be used as enterprise code specification',
-  'Excellent menu function permissions, the front end can flexibly control the display of pages and buttons, and the back end can intercept unauthorized requests',
-  'Good data access management, just add corresponding annotations without any other code, can achieve data filtering, data access purposes',
-  'Flexible role permission management. When adding a role, the role permission can only be a subset of the creator permission, which can effectively prevent the permission from exceeding the authority',
-  'Flexible log management, can view log, operation log, exception log, easy to audit and BUG location',
-  'The flexible internationalization configuration supports simplified Chinese, traditional Chinese and English. If you need to add a new language, you only need to add a new language [i18n] file',
-  'Flexible front-end dynamic routing, new pages do not need to modify the routing file, can also dynamically add TAB tags in the page'
+  ''
 ]
 
 /* modules */
@@ -235,7 +227,7 @@ t.oss.qiniuSecretKeyTips = 'Seven Cow SecretKey'
 t.oss.qiniuBucketName = 'Space Name'
 t.oss.qiniuBucketNameTips = 'Seven cattle storage space name'
 t.oss.aliyunDomain = 'Domain Name'
-t.oss.aliyunDomainTips = 'Alibaba Cloud bound domain name, such as: http://cdn.renren.io'
+t.oss.aliyunDomainTips = 'Alibaba Cloud bound domain name'
 t.oss.aliyunPrefix = 'Path Prefix'
 t.oss.aliyunPrefixTips = 'Do not set default to empty'
 t.oss.aliyunEndPoint = 'EndPoint'
@@ -271,9 +263,9 @@ t.oss.qcloudRegionHongkong = 'HongKong'
 t.oss.qcloudRegionToronto = 'Toronto'
 t.oss.qcloudRegionFrankfurt = 'Frankfurt'
 t.oss.localDomain = 'Domain Name'
-t.oss.localDomainTips = 'Binded domain name, eg http://cdn.renren.io'
+t.oss.localDomainTips = 'Binded domain name'
 t.oss.fastdfsDomain = 'Domain Name'
-t.oss.fastdfsDomainTips = 'Binded domain name, eg http://cdn.renren.io'
+t.oss.fastdfsDomainTips = 'Binded domain name'
 t.oss.localPrefix = 'Path Prefix'
 t.oss.localPrefixTips = 'Do not set default to empty'
 t.oss.localPath = 'Storage Directory'
