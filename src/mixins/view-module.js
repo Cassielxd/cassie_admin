@@ -138,7 +138,7 @@ export default {
             'data': id ? [id] : this.dataListSelections.map(item => item[this.mixinViewModuleOptions.deleteIsBatchKey])
           } : {}
         ).then(({ data: res }) => {
-          if (res.code !== 0) {
+          if (res.code != 0) {
             return this.$message.error(res.msg)
           }
           this.$message({

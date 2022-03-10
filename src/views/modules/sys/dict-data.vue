@@ -63,8 +63,8 @@ export default {
         createdIsNeed: false,
         getDataListURL: '/dict/value',
         getDataListIsPage: true,
-        deleteURL: '/dict/data',
-        deleteIsBatch: true
+        deleteURL: '/dict/value',
+        deleteIsBatch: false
       },
       dataForm: {
         dict_type_id: '0',

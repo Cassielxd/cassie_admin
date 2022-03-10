@@ -13,9 +13,9 @@
             <svg class="icon-svg" aria-hidden="true"><use :xlink:href="`#${scope.row.icon}`"></use></svg>
           </template>
         </el-table-column>
-        <el-table-column prop="type" :label="$t('menu.type')" header-align="center" align="center">
+        <el-table-column prop="menu_type" :label="$t('menu.type')" header-align="center" align="center">
           <template slot-scope="scope">
-            <el-tag v-if="scope.row.type === 0" size="small">{{ $t('menu.type0') }}</el-tag>
+            <el-tag v-if="scope.row.menu_type === 0" size="small">{{ $t('menu.type0') }}</el-tag>
             <el-tag v-else size="small" type="info">{{ $t('menu.type1') }}</el-tag>
           </template>
         </el-table-column>

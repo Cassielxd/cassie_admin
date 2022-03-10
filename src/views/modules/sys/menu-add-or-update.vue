@@ -10,7 +10,7 @@
       <el-form-item prop="name" :label="$t('menu.name')">
         <el-input v-model="dataForm.name" :placeholder="$t('menu.name')"></el-input>
       </el-form-item>
-      <el-form-item prop="parentName" :label="$t('menu.parentName')" class="menu-list">
+      <el-form-item prop="parent_name" :label="$t('menu.parentName')" class="menu-list">
         <el-popover v-model="menuListVisible" ref="menuListPopover" placement="bottom-start" trigger="click">
           <el-tree
             :data="menuList"
@@ -23,7 +23,7 @@
             @current-change="menuListTreeCurrentChangeHandle">
           </el-tree>
         </el-popover>
-        <el-input v-model="dataForm.parentName" v-popover:menuListPopover :readonly="true" :placeholder="$t('menu.parentName')">
+        <el-input v-model="dataForm.parent_name" v-popover:menuListPopover :readonly="true" :placeholder="$t('menu.parentName')">
           <i v-if="dataForm.pid !== '0'" slot="suffix" @click.stop="deptListTreeSetDefaultHandle()" class="el-icon-circle-close el-input__icon"></i>
         </el-input>
       </el-form-item>
@@ -76,7 +76,7 @@ export default {
         type: 0,
         name: '',
         pid: '0',
-        parentName: '',
+        parent_name: '',
         url: '',
         permissions: '',
         sort: 0,
@@ -90,7 +90,7 @@ export default {
         name: [
           { required: true, message: this.$t('validate.required'), trigger: 'blur' }
         ],
-        parentName: [
+        parent_name: [
           { required: true, message: this.$t('validate.required'), trigger: 'change' }
         ]
       }
@@ -118,7 +118,7 @@ export default {
     // 获取菜单列表
     getMenuList () {
       return this.$http.get('/menu/list?type=0').then(({ data: res }) => {
-        if (res.code !== 0) {
+        if (res.code != 0) {
           return this.$message.error(res.msg)
         }
         this.menuList = res.data
@@ -126,8 +126,8 @@ export default {
     },
     // 获取信息
     getInfo () {
-      this.$http.get(`/sys/menu/${this.dataForm.id}`).then(({ data: res }) => {
-        if (res.code !== 0) {
+      this.$http.get(`/menu/${this.dataForm.id}`).then(({ data: res }) => {
+        if (res.code != 0) {
           return this.$message.error(res.msg)
         }
         this.dataForm = {
