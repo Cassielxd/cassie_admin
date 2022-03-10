@@ -4,17 +4,14 @@
       <el-form-item prop="username" :label="$t('user.username')">
         <el-input v-model="dataForm.username" :placeholder="$t('user.username')"></el-input>
       </el-form-item>
-      <el-form-item prop="deptName" :label="$t('user.deptName')">
-        <ren-dept-tree v-model="dataForm.deptId" :placeholder="$t('dept.title')" :dept-name.sync="dataForm.deptName"></ren-dept-tree>
-      </el-form-item>
       <el-form-item prop="password" :label="$t('user.password')" :class="{ 'is-required': !dataForm.id }">
         <el-input v-model="dataForm.password" type="password" :placeholder="$t('user.password')"></el-input>
       </el-form-item>
-      <el-form-item prop="confirmPassword" :label="$t('user.confirmPassword')" :class="{ 'is-required': !dataForm.id }">
-        <el-input v-model="dataForm.confirmPassword" type="password" :placeholder="$t('user.confirmPassword')"></el-input>
+      <el-form-item prop="confirm_password" :label="$t('user.confirmPassword')" :class="{ 'is-required': !dataForm.id }">
+        <el-input v-model="dataForm.confirm_password" type="password" :placeholder="$t('user.confirmPassword')"></el-input>
       </el-form-item>
       <el-form-item prop="realName" :label="$t('user.realName')">
-        <el-input v-model="dataForm.realName" :placeholder="$t('user.realName')"></el-input>
+        <el-input v-model="dataForm.real_name" :placeholder="$t('user.realName')"></el-input>
       </el-form-item>
       <el-form-item prop="gender" :label="$t('user.gender')" size="mini">
         <el-radio-group v-model="dataForm.gender">
@@ -29,14 +26,9 @@
       <el-form-item prop="mobile" :label="$t('user.mobile')">
         <el-input v-model="dataForm.mobile" :placeholder="$t('user.mobile')"></el-input>
       </el-form-item>
-      <el-form-item prop="roleIdList" :label="$t('user.roleIdList')" class="role-list">
-        <el-select v-model="dataForm.roleIdList" multiple :placeholder="$t('user.roleIdList')">
+      <el-form-item prop="role_id" :label="$t('user.roleIdList')" class="role-list">
+        <el-select v-model="dataForm.role_id"  :placeholder="$t('user.roleIdList')">
           <el-option v-for="role in roleList" :key="role.id" :label="role.name" :value="role.id"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item prop="postIdList" :label="$t('user.postIdList')" class="role-list">
-        <el-select v-model="dataForm.postIdList" multiple :placeholder="$t('user.postIdList')">
-          <el-option v-for="post in postList" :key="post.id" :label="post.postName" :value="post.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item prop="status" :label="$t('user.status')" size="mini">
@@ -66,16 +58,13 @@ export default {
       dataForm: {
         id: '',
         username: '',
-        deptId: '0',
-        deptName: '',
         password: '',
-        confirmPassword: '',
-        realName: '',
+        confirm_password: '',
+        real_name: '',
         gender: 0,
         email: '',
         mobile: '',
-        roleIdList: [],
-        postIdList: [],
+        role_id: 0,
         status: 1
       }
     }
@@ -113,16 +102,13 @@ export default {
         username: [
           { required: true, message: this.$t('validate.required'), trigger: 'blur' }
         ],
-        deptName: [
-          { required: true, message: this.$t('validate.required'), trigger: 'change' }
-        ],
         password: [
           { validator: validatePassword, trigger: 'blur' }
         ],
-        confirmPassword: [
+        confirm_password: [
           { validator: validateConfirmPassword, trigger: 'blur' }
         ],
-        realName: [
+        real_name: [
           { required: true, message: this.$t('validate.required'), trigger: 'blur' }
         ],
         email: [
@@ -144,8 +130,7 @@ export default {
         this.$refs['dataForm'].resetFields()
         this.roleIdListDefault = []
         Promise.all([
-          this.getRoleList(),
-          this.getPostList()
+          this.getRoleList()
         ]).then(() => {
           if (this.dataForm.id) {
             this.getInfo()
@@ -153,19 +138,10 @@ export default {
         })
       })
     },
-    // 获取岗位列表
-    getPostList () {
-      return this.$http.get('/sys/post/list').then(({ data: res }) => {
-        if (res.code !== 0) {
-          return this.$message.error(res.msg)
-        }
-        this.postList = res.data
-      }).catch(() => {})
-    },
     // 获取角色列表
     getRoleList () {
-      return this.$http.get('/sys/role/list').then(({ data: res }) => {
-        if (res.code !== 0) {
+      return this.$http.get('/role/list').then(({ data: res }) => {
+        if (res.code != 0) {
           return this.$message.error(res.msg)
         }
         this.roleList = res.data
@@ -173,7 +149,7 @@ export default {
     },
     // 获取信息
     getInfo () {
-      this.$http.get(`/sys/user/${this.dataForm.id}`).then(({ data: res }) => {
+      this.$http.get(`/user/${this.dataForm.id}`).then(({ data: res }) => {
         if (res.code !== 0) {
           return this.$message.error(res.msg)
         }

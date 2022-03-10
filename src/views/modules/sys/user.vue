@@ -70,7 +70,7 @@ export default {
         getDataListURL: '/user',
         getDataListIsPage: true,
         deleteURL: '/sys/user',
-        deleteIsBatch: true,
+        deleteIsBatch: false,
         exportURL: '/sys/user/export'
       },
       dataForm: {

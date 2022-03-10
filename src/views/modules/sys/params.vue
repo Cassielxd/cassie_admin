@@ -56,7 +56,7 @@ export default {
         deleteIsBatch: false
       },
       dataForm: {
-        paramCode: ''
+        param_code: ''
       }
     }
   },

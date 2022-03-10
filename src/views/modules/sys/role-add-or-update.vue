@@ -8,25 +8,13 @@
         <el-input v-model="dataForm.remark" :placeholder="$t('role.remark')"></el-input>
       </el-form-item>
       <el-row>
-        <el-col :span="12">
+        <el-col :span="24">
           <el-form-item size="mini" :label="$t('role.menuList')">
             <el-tree
               :data="menuList"
               :props="{ label: 'name', children: 'children' }"
               node-key="id"
               ref="menuListTree"
-              accordion
-              show-checkbox>
-            </el-tree>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item size="mini" :label="$t('role.deptList')">
-            <el-tree
-              :data="deptList"
-              :props="{ label: 'name', children: 'children' }"
-              node-key="id"
-              ref="deptListTree"
               accordion
               show-checkbox>
             </el-tree>
@@ -48,12 +36,10 @@ export default {
     return {
       visible: false,
       menuList: [],
-      deptList: [],
       dataForm: {
         id: '',
         name: '',
-        menuIdList: [],
-        deptIdList: [],
+        menuid_list: [],
         remark: ''
       }
     }
@@ -73,10 +59,8 @@ export default {
       this.$nextTick(() => {
         this.$refs['dataForm'].resetFields()
         this.$refs.menuListTree.setCheckedKeys([])
-        this.$refs.deptListTree.setCheckedKeys([])
         Promise.all([
-          this.getMenuList(),
-          this.getDeptList()
+          this.getMenuList()
         ]).then(() => {
           if (this.dataForm.id) {
             this.getInfo()
@@ -86,25 +70,16 @@ export default {
     },
     // 获取菜单列表
     getMenuList () {
-      return this.$http.get('/sys/menu/select').then(({ data: res }) => {
+      return this.$http.get('/menu/nav').then(({ data: res }) => {
         if (res.code !== 0) {
           return this.$message.error(res.msg)
         }
         this.menuList = res.data
       }).catch(() => {})
     },
-    // 获取部门列表
-    getDeptList () {
-      return this.$http.get('/sys/dept/list').then(({ data: res }) => {
-        if (res.code !== 0) {
-          return this.$message.error(res.msg)
-        }
-        this.deptList = res.data
-      }).catch(() => {})
-    },
     // 获取信息
     getInfo () {
-      this.$http.get(`/sys/role/${this.dataForm.id}`).then(({ data: res }) => {
+      this.$http.get(`/role/${this.dataForm.id}`).then(({ data: res }) => {
         if (res.code !== 0) {
           return this.$message.error(res.msg)
         }
@@ -112,8 +87,7 @@ export default {
           ...this.dataForm,
           ...res.data
         }
-        this.dataForm.menuIdList.forEach(item => this.$refs.menuListTree.setChecked(item, true))
-        this.$refs.deptListTree.setCheckedKeys(this.dataForm.deptIdList)
+        this.dataForm.menuid_list.forEach(item => this.$refs.menuListTree.setChecked(item, true))
       }).catch(() => {})
     },
     // 表单提交
@@ -122,12 +96,12 @@ export default {
         if (!valid) {
           return false
         }
-        this.dataForm.menuIdList = [
+        
+        this.dataForm.menuid_list = [
           ...this.$refs.menuListTree.getCheckedKeys(),
           ...this.$refs.menuListTree.getHalfCheckedKeys()
         ]
-        this.dataForm.deptIdList = this.$refs.deptListTree.getCheckedKeys()
-        this.$http[!this.dataForm.id ? 'post' : 'put']('/sys/role', this.dataForm).then(({ data: res }) => {
+        this.$http[!this.dataForm.id ? 'post' : 'put']('/role', this.dataForm).then(({ data: res }) => {
           if (res.code !== 0) {
             return this.$message.error(res.msg)
           }
