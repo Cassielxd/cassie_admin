@@ -79,8 +79,7 @@ export default {
         if (!valid) {
           return false
         }
-        this.dataForm.id =Number(this.dataForm.id);
-        debugger
+
         this.$http[!this.dataForm.id ? 'post' : 'put']('/dict/type', this.dataForm).then(({ data: res }) => {
           if (res.code != 0) {
             return this.$message.error(res.msg)

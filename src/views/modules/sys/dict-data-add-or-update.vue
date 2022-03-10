@@ -65,7 +65,7 @@ export default {
     // 获取信息
     getInfo () {
       this.$http.get(`/dict/value/${this.dataForm.id}`).then(({ data: res }) => {
-        if (res.code !== 0) {
+        if (res.code != 0) {
           return this.$message.error(res.msg)
         }
         this.dataForm = {
@@ -81,7 +81,7 @@ export default {
           return false
         }
         this.$http[!this.dataForm.id ? 'post' : 'put']('/dict/value', this.dataForm).then(({ data: res }) => {
-          if (res.code !== 0) {
+          if (res.code != 0) {
             return this.$message.error(res.msg)
           }
           this.$message({

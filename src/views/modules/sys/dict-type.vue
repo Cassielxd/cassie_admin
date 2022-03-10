@@ -84,7 +84,6 @@ export default {
   methods: {
     // 子级
     childHandle (row) {
-      debugger
       // 路由参数
       const routeParams = {
         routeName: `${this.$route.name}__${row.id}`,
