@@ -2,7 +2,7 @@
   <el-dialog :visible.sync="visible" :title="!dataForm.id ? $t('add') : $t('update')" :close-on-click-modal="false" :close-on-press-escape="false">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmitHandle()" label-width="120px">
       <el-form-item prop="type" :label="$t('menu.type')" size="mini">
-        <el-radio-group v-model="dataForm.type" :disabled="!!dataForm.id">
+        <el-radio-group v-model="dataForm.menu_type" :disabled="!!dataForm.id">
           <el-radio :label="0">{{ $t('menu.type0') }}</el-radio>
           <el-radio :label="1">{{ $t('menu.type1') }}</el-radio>
         </el-radio-group>
@@ -27,13 +27,13 @@
           <i v-if="dataForm.pid !== '0'" slot="suffix" @click.stop="deptListTreeSetDefaultHandle()" class="el-icon-circle-close el-input__icon"></i>
         </el-input>
       </el-form-item>
-      <el-form-item v-if="dataForm.type === 0" prop="url" :label="$t('menu.url')">
+      <el-form-item v-if="dataForm.menu_type === 0" prop="url" :label="$t('menu.url')">
         <el-input v-model="dataForm.url" :placeholder="$t('menu.url')"></el-input>
       </el-form-item>
       <el-form-item prop="sort" :label="$t('menu.sort')">
         <el-input-number v-model="dataForm.sort" controls-position="right" :min="0" :label="$t('menu.sort')"></el-input-number>
       </el-form-item>
-      <el-form-item v-if="dataForm.type === 0" prop="icon" :label="$t('menu.icon')" class="icon-list">
+      <el-form-item v-if="dataForm.menu_type === 0" prop="icon" :label="$t('menu.icon')" class="icon-list">
         <el-popover v-model="iconListVisible" ref="iconListPopover" placement="bottom-start" trigger="click" popper-class="mod-sys__menu-icon-popover">
           <div class="mod-sys__menu-icon-inner">
             <div class="mod-sys__menu-icon-list">
@@ -107,7 +107,7 @@ export default {
       this.$nextTick(() => {
         this.$refs['dataForm'].resetFields()
         this.iconList = getIconList()
-        this.dataForm.parentName = this.$t('menu.parentNameDefault')
+        this.dataForm.parent_name = this.$t('menu.parentNameDefault')
         this.getMenuList().then(() => {
           if (this.dataForm.id) {
             this.getInfo()
@@ -143,12 +143,12 @@ export default {
     // 上级菜单树, 设置默认值
     deptListTreeSetDefaultHandle () {
       this.dataForm.pid = '0'
-      this.dataForm.parentName = this.$t('menu.parentNameDefault')
+      this.dataForm.parent_name = this.$t('menu.parentNameDefault')
     },
     // 上级菜单树, 选中
     menuListTreeCurrentChangeHandle (data) {
       this.dataForm.pid = data.id
-      this.dataForm.parentName = data.name
+      this.dataForm.parent_name = data.name
       this.menuListVisible = false
     },
     // 图标, 选中

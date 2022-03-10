@@ -1,11 +1,11 @@
 <template>
   <el-dialog :visible.sync="visible" :title="!dataForm.id ? $t('add') : $t('update')" :close-on-click-modal="false" :close-on-press-escape="false">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmitHandle()" label-width="120px">
-      <el-form-item prop="paramCode" :label="$t('params.paramCode')">
-        <el-input v-model="dataForm.paramCode" :placeholder="$t('params.paramCode')"></el-input>
+      <el-form-item prop="param_code" :label="$t('params.paramCode')">
+        <el-input v-model="dataForm.param_code" :placeholder="$t('params.paramCode')"></el-input>
       </el-form-item>
-      <el-form-item prop="paramValue" :label="$t('params.paramValue')">
-        <el-input v-model="dataForm.paramValue" :placeholder="$t('params.paramValue')"></el-input>
+      <el-form-item prop="param_value" :label="$t('params.paramValue')">
+        <el-input v-model="dataForm.param_value" :placeholder="$t('params.paramValue')"></el-input>
       </el-form-item>
       <el-form-item prop="remark" :label="$t('params.remark')">
         <el-input v-model="dataForm.remark" :placeholder="$t('params.remark')"></el-input>
@@ -26,8 +26,8 @@ export default {
       visible: false,
       dataForm: {
         id: '',
-        paramCode: '',
-        paramValue: '',
+        param_code: '',
+        param_value: '',
         remark: ''
       }
     }
@@ -35,10 +35,10 @@ export default {
   computed: {
     dataRule () {
       return {
-        paramCode: [
+        param_code: [
           { required: true, message: this.$t('validate.required'), trigger: 'blur' }
         ],
-        paramValue: [
+        param_value: [
           { required: true, message: this.$t('validate.required'), trigger: 'blur' }
         ]
       }
@@ -56,8 +56,8 @@ export default {
     },
     // 获取信息
     getInfo () {
-      this.$http.get(`/sys/params/${this.dataForm.id}`).then(({ data: res }) => {
-        if (res.code !== 0) {
+      this.$http.get(`/params/${this.dataForm.id}`).then(({ data: res }) => {
+        if (res.code != 0) {
           return this.$message.error(res.msg)
         }
         this.dataForm = {
@@ -72,8 +72,8 @@ export default {
         if (!valid) {
           return false
         }
-        this.$http[!this.dataForm.id ? 'post' : 'put']('/sys/params', this.dataForm).then(({ data: res }) => {
-          if (res.code !== 0) {
+        this.$http[!this.dataForm.id ? 'post' : 'put']('/params', this.dataForm).then(({ data: res }) => {
+          if (res.code != 0) {
             return this.$message.error(res.msg)
           }
           this.$message({
