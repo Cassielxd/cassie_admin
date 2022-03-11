@@ -3,10 +3,10 @@
     <div class="mod-sys__dict">
       <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
         <el-form-item>
-          <el-input v-model="dataForm.dictName" :placeholder="$t('dict.dictName')" clearable></el-input>
+          <el-input v-model="dataForm.dict_name" :placeholder="$t('dict.dictName')" clearable></el-input>
         </el-form-item>
         <el-form-item>
-          <el-input v-model="dataForm.dictType" :placeholder="$t('dict.dictType')" clearable></el-input>
+          <el-input v-model="dataForm.dict_type" :placeholder="$t('dict.dictType')" clearable></el-input>
         </el-form-item>
         <el-form-item>
           <el-button @click="getDataList()">{{ $t('query') }}</el-button>
@@ -73,8 +73,8 @@ export default {
       },
       dataForm: {
         id: '0',
-        dictName: '',
-        dictType: ''
+        dict_name: '',
+        dict_type: ''
       }
     }
   },

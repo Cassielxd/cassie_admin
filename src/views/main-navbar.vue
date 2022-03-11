@@ -16,19 +16,7 @@
         </el-menu-item>
       </el-menu>
       <el-menu class="aui-navbar__menu" mode="horizontal">
-        <el-menu-item index="1">
-          <el-dropdown placement="bottom" :show-timeout="0">
-            <el-button size="mini">{{ $t('_lang') }}</el-button>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item v-for="(val, key) in i18nMessages" :key="key" @click.native="$i18n.locale = key">{{ val._lang }}</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </el-menu-item>
-        <el-menu-item index="2">
-          <a href="//www.renren.io/" target="_blank">
-            <svg class="icon-svg aui-navbar__icon-menu" aria-hidden="true"><use xlink:href="#icon-earth"></use></svg>
-          </a>
-        </el-menu-item>
+
         <el-menu-item index="4" v-if="$hasPermission('sys:notice:all')">
           <el-badge :is-dot="messageTip">
             <a href="#"  @click="myNoticeRouter()"><i class="el-icon-bell"></i></a>
@@ -76,21 +64,11 @@ export default {
   },
   created () {
     // 未读通知数this.getUnReadCount()
-    
+
   },
   methods: {
     myNoticeRouter () {
       this.$router.replace('sys-notice-user')
-    },
-    getUnReadCount () {
-      this.$http.get(`/sys/notice/mynotice/unread`).then(({ data: res }) => {
-        if (res.code !== 0) {
-          return this.$message.error(res.msg)
-        }
-        if (res.data > 0) {
-          this.messageTip = true
-        }
-      }).catch(() => {})
     },
     // 全屏
     fullscreenHandle () {

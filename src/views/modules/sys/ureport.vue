@@ -66,11 +66,11 @@ export default {
   methods: {
     // 设计器url地址
     getDesignerURL (fileName) {
-      return `${window.SITE_CONFIG['apiURL']}/sys/ureport/designer?_u=renren-${fileName}`
+      return `${window.SITE_CONFIG['apiURL']}/ureport/designer?_u=cassie-${fileName}`
     },
     // 预览url地址
     getPreviewURL (fileName) {
-      return `${window.SITE_CONFIG['apiURL']}/sys/ureport/preview?_u=renren-${fileName}`
+      return `${window.SITE_CONFIG['apiURL']}/ureport/preview?_u=cassie-${fileName}`
     }
   }
 }
