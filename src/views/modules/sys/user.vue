@@ -39,8 +39,8 @@
         <el-table-column prop="create_date" :label="$t('user.createDate')" sortable="custom" header-align="center" align="center" width="180"></el-table-column>
         <el-table-column :label="$t('handle')" fixed="right" header-align="center" align="center" width="150">
           <template slot-scope="scope">
-            <el-button  type="text" size="small" @click="addOrUpdateHandle(scope.row.id)">{{ $t('update') }}</el-button>
-            <el-button  type="text" size="small" @click="deleteHandle(scope.row.id)">{{ $t('delete') }}</el-button>
+            <el-button  v-if="scope.row.super_admin === 0" type="text" size="small" @click="addOrUpdateHandle(scope.row.id)">{{ $t('update') }}</el-button>
+            <el-button v-if="scope.row.super_admin === 0"  type="text" size="small" @click="deleteHandle(scope.row.id)">{{ $t('delete') }}</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -69,9 +69,9 @@ export default {
       mixinViewModuleOptions: {
         getDataListURL: '/user',
         getDataListIsPage: true,
-        deleteURL: '/sys/user',
+        deleteURL: '/user',
         deleteIsBatch: false,
-        exportURL: '/sys/user/export'
+        exportURL: '/user/export'
       },
       dataForm: {
         username: '',

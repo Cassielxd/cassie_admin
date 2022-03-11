@@ -8,9 +8,9 @@
   </el-submenu>
   <el-menu-item v-else :index="menu.id.toString()" ref="li">
     <a
-      :href="isBrowserTabOpen(menu.id) ? getBrowserTabOpenURL(menu.id) : 'javascript:;'"
-      :target="isBrowserTabOpen(menu.id) ? '_blank' : '_self'"
-      @click="isBrowserTabOpen(menu.id) ? 'return false;' : gotoRouteHandle(menu.id.toString())">
+      :href="isBrowserTabOpen(menu.id.toString()) ? getBrowserTabOpenURL(menu.id.toString()) : 'javascript:;'"
+      :target="isBrowserTabOpen(menu.id.toString()) ? '_blank' : '_self'"
+      @click="isBrowserTabOpen(menu.id.toString()) ? 'return false;' : gotoRouteHandle(menu.id.toString())">
       <svg class="icon-svg aui-sidebar__menu-icon" aria-hidden="true"><use :xlink:href="`#${menu.icon}`"></use></svg>
       <span>{{ menu.name }}</span>
     </a>
@@ -24,7 +24,7 @@ export default {
   data () {
     return {
       browserTabOpenList: [
-        '1067246875800000042',
+        '42',
       ]
     }
   },
@@ -60,16 +60,16 @@ export default {
   methods: {
     // 是否通过浏览器Tab打开菜单
     isBrowserTabOpen (menuId) {
-      return this.browserTabOpenList.filter(item => item === menuId).length >= 1;
+      return this.browserTabOpenList.filter(item => item == menuId).length >= 1;
     },
     // 获取浏览器Tab打开菜单URL
     getBrowserTabOpenURL (menuId) {
-      var route = window.SITE_CONFIG['dynamicMenuRoutes'].filter(item => item.meta.menuId === menuId)[0]
+      var route = window.SITE_CONFIG['dynamicMenuRoutes'].filter(item => item.meta.menuId == menuId)[0]
       return route ? route.meta.iframeURL : '';
     },
     // 通过menuId与动态(菜单)路由进行匹配跳转至指定路由
     gotoRouteHandle (menuId) {
-      var route = window.SITE_CONFIG['dynamicMenuRoutes'].filter(item => item.meta.menuId === menuId)[0]
+      var route = window.SITE_CONFIG['dynamicMenuRoutes'].filter(item => item.meta.menuId == menuId)[0]
       if (route) {
         this.$router.push({ name: route.name })
       }

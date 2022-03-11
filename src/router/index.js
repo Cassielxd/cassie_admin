@@ -80,7 +80,7 @@ router.beforeEach((to, from, next) => {
   }
   // 获取字典列表, 添加并全局变量保存
   http.get('/dict/type/all').then(({ data: res }) => {
-    if (res.code !== 0) {
+    if (res.code != 0) {
       return
     }
     window.SITE_CONFIG['dictList'] = res.data
@@ -136,7 +136,7 @@ function fnAddDynamicMenuRoutes (menuList = [], routes = []) {
       name: '',
       meta: {
         ...window.SITE_CONFIG['contentTabDefault'],
-        menuId: menuList[i].id.toString(),
+        menuId: menuList[i].id,
         title: menuList[i].name
       }
     }

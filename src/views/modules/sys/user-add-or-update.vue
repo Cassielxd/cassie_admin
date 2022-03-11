@@ -7,9 +7,6 @@
       <el-form-item prop="password" :label="$t('user.password')" :class="{ 'is-required': !dataForm.id }">
         <el-input v-model="dataForm.password" type="password" :placeholder="$t('user.password')"></el-input>
       </el-form-item>
-      <el-form-item prop="confirm_password" :label="$t('user.confirmPassword')" :class="{ 'is-required': !dataForm.id }">
-        <el-input v-model="dataForm.confirm_password" type="password" :placeholder="$t('user.confirmPassword')"></el-input>
-      </el-form-item>
       <el-form-item prop="realName" :label="$t('user.realName')">
         <el-input v-model="dataForm.real_name" :placeholder="$t('user.realName')"></el-input>
       </el-form-item>
@@ -59,7 +56,6 @@ export default {
         id: '',
         username: '',
         password: '',
-        confirm_password: '',
         real_name: '',
         gender: 0,
         email: '',
@@ -74,15 +70,6 @@ export default {
       var validatePassword = (rule, value, callback) => {
         if (!this.dataForm.id && !/\S/.test(value)) {
           return callback(new Error(this.$t('validate.required')))
-        }
-        callback()
-      }
-      var validateConfirmPassword = (rule, value, callback) => {
-        if (!this.dataForm.id && !/\S/.test(value)) {
-          return callback(new Error(this.$t('validate.required')))
-        }
-        if (this.dataForm.password !== value) {
-          return callback(new Error(this.$t('user.validate.confirmPassword')))
         }
         callback()
       }
@@ -104,9 +91,6 @@ export default {
         ],
         password: [
           { validator: validatePassword, trigger: 'blur' }
-        ],
-        confirm_password: [
-          { validator: validateConfirmPassword, trigger: 'blur' }
         ],
         real_name: [
           { required: true, message: this.$t('validate.required'), trigger: 'blur' }
@@ -156,16 +140,10 @@ export default {
         this.dataForm = {
           ...this.dataForm,
           ...res.data,
-          roleIdList: []
+          role_id: 0
         }
         // 角色配置, 区分是否为默认角色
-        for (var i = 0; i < res.data.roleIdList.length; i++) {
-          if (this.roleList.filter(item => item.id === res.data.roleIdList[i])[0]) {
-            this.dataForm.roleIdList.push(res.data.roleIdList[i])
-            continue
-          }
-          this.roleIdListDefault.push(res.data.roleIdList[i])
-        }
+        this.roleIdListDefault.push(res.data.role_id)
       }).catch(() => {})
     },
     // 表单提交
@@ -174,12 +152,8 @@ export default {
         if (!valid) {
           return false
         }
-        this.$http[!this.dataForm.id ? 'post' : 'put']('/sys/user', {
-          ...this.dataForm,
-          roleIdList: [
-            ...this.dataForm.roleIdList,
-            ...this.roleIdListDefault
-          ]
+        this.$http[!this.dataForm.id ? 'post' : 'put']('/user', {
+          ...this.dataForm
         }).then(({ data: res }) => {
           if (res.code !== 0) {
             return this.$message.error(res.msg)

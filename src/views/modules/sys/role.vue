@@ -25,7 +25,7 @@
         <el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
         <el-table-column prop="name" :label="$t('role.name')" header-align="center" align="center"></el-table-column>
         <el-table-column prop="remark" :label="$t('role.remark')" header-align="center" align="center"></el-table-column>
-        <el-table-column prop="createDate" :label="$t('role.createDate')" sortable="custom" header-align="center" align="center" width="180"></el-table-column>
+        <el-table-column prop="create_date" :label="$t('role.createDate')" sortable="custom" header-align="center" align="center" width="180"></el-table-column>
         <el-table-column :label="$t('handle')" fixed="right" header-align="center" align="center" width="150">
           <template slot-scope="scope">
             <el-button  type="text" size="small" @click="addOrUpdateHandle(scope.row.id)">{{ $t('update') }}</el-button>

@@ -14,7 +14,7 @@ export function hasPermission (key) {
  * @param dictType  字典类型
  */
 export function getDictDataList (dictType) {
-  const type = window.SITE_CONFIG['dictList'].find((element) => (element.dictType === dictType))
+  const type = window.SITE_CONFIG['dictList'].find((element) => (element.dict_type === dictType))
   if (type) {
     return type.dataList
   } else {
@@ -28,7 +28,7 @@ export function getDictDataList (dictType) {
  * @param dictValue  字典值
  */
 export function getDictLabel (dictType, dictValue) {
-  const type = window.SITE_CONFIG['dictList'].find((element) => (element.dictType === dictType))
+  const type = window.SITE_CONFIG['dictList'].find((element) => (element.dict_type === dictType))
   if (type) {
     const val = type.dataList.find((element) => (element.dictValue === dictValue + ''))
     if (val) {
