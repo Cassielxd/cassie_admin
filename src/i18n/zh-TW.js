@@ -3,8 +3,8 @@ const t = {}
 t.loading = '加載中...'
 
 t.brand = {}
-t.brand.lg = '人人微服務平台'
-t.brand.mini = '人人'
+t.brand.lg = 'CASSIE AXUM平台'
+t.brand.mini = 'CASSIE'
 
 t.add = '新增'
 t.delete = '刪除'
@@ -76,7 +76,7 @@ t.login.username = '用戶名'
 t.login.password = '密碼'
 t.login.captcha = '驗證碼'
 t.login.demo = '在線演示'
-t.login.copyright = '人人開源'
+t.login.copyright = ''
 
 t.home = {}
 t.home.desc = {}

@@ -3,7 +3,7 @@ const t = {}
 t.loading = '加载中...'
 
 t.brand = {}
-t.brand.lg = 'CASSIE AXUM微服务平台'
+t.brand.lg = 'CASSIE AXUM平台'
 t.brand.mini = 'CASSIE'
 
 t.add = '新增'
@@ -76,7 +76,7 @@ t.login.username = '用户名'
 t.login.password = '密码'
 t.login.captcha = '验证码'
 t.login.demo = '在线演示'
-t.login.copyright = '人人开源'
+t.login.copyright = '开源'
 
 t.home = {}
 t.home.desc = {}
