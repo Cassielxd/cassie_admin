@@ -6,19 +6,13 @@
       </el-menu>
     </el-aside>
     <el-container>
-      <el-header style="text-align: right; font-size: 12px">
-        <el-dropdown>
-          <i class="el-icon-setting" style="margin-right: 15px"></i>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>查看</el-dropdown-item>
-            <el-dropdown-item>新增</el-dropdown-item>
-            <el-dropdown-item>删除</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-        <span>王小虎</span>
-      </el-header>
 
       <el-main>
+        <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
+          <el-form-item>
+            <el-button @click="addOrUpdateHandle()">{{ $t('add') }}</el-button>
+          </el-form-item>
+        </el-form>
         <el-table :data="columsList">
           <el-table-column prop="column_name" label="列名" width="200">
           </el-table-column>
@@ -38,15 +32,17 @@
         </el-table>
       </el-main>
     </el-container>
+    <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getColumsList"></add-or-update>
   </el-container>
 </template>
 
 <script>
 import SubGroup from './asi-sub-group'
-
+import AddOrUpdate from './asi-column-add-or-update'
 export default {
   data () {
     return {
+      addOrUpdateVisible: false,
       groupList: [],
       columsList: [],
       dataForm: {
@@ -57,12 +53,20 @@ export default {
     }
   },
   components: {
+    AddOrUpdate,
     SubGroup
   },
   created () {
     this.getGroupList()
   },
   methods: {
+    addOrUpdateHandle (id) {
+      this.addOrUpdateVisible = true
+      this.$nextTick(() => {
+        this.$refs.addOrUpdate.dataForm.id = id
+        this.$refs.addOrUpdate.init()
+      })
+    },
     selectGroup (groupCode) {
       // eslint-disable-next-line eqeqeq
       if (this.dataForm.group_code != groupCode) {
@@ -83,7 +87,6 @@ export default {
       })
     },
     getColumsList () {
-      debugger
       return this.$http.get('/asi/column/list/' + this.dataForm.group_code).then(({ data: res }) => {
         // eslint-disable-next-line eqeqeq
         if (res.code != 0) {
