@@ -87,6 +87,7 @@ router.beforeEach((to, from, next) => {
   }).catch(() => {})
   // 获取菜单列表, 添加并全局变量保存
   http.get('/menu/nav').then(({ data: res }) => {
+    // eslint-disable-next-line eqeqeq
     if (res.code != 0) {
       Vue.prototype.$message.error(res.msg)
       return next({ name: 'login' })
@@ -129,7 +130,7 @@ function fnAddDynamicMenuRoutes (menuList = [], routes = []) {
       temp = temp.concat(menuList[i].children)
       continue
     }
-    // 组装路由 
+    // 组装路由
     var route = {
       path: '',
       component: null,

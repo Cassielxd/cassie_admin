@@ -75,7 +75,7 @@ export default {
         id: '',
         type: 0,
         name: '',
-        pid: '0',
+        pid: 0,
         parent_name: '',
         url: '',
         permissions: '',
