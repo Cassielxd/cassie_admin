@@ -10,7 +10,7 @@
       <el-main>
         <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
           <el-form-item>
-            <el-button @click="addOrUpdateHandle()">{{ $t('add') }}-{{this.dataForm.group_name}}</el-button>
+            <el-button @click="addOrUpdateHandle()">{{ $t('add') }}-{{ this.dataForm.group_name }}</el-button>
           </el-form-item>
         </el-form>
         <el-table :data="columsList">
@@ -39,6 +39,7 @@
 <script>
 import SubGroup from './asi-sub-group'
 import AddOrUpdate from './asi-column-add-or-update'
+
 export default {
   data () {
     return {
@@ -74,7 +75,6 @@ export default {
         this.dataForm.group_name = group.name
         this.getColumsList()
       }
-
 
     },
     getGroupList () {
