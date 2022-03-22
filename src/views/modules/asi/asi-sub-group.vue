@@ -1,69 +1,73 @@
 <template>
-  <el-card shadow="never" class="aui-card--fill">
-    <el-container style="border: 1px solid #eee">
-      <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-        <el-menu >
-          
-        </el-menu>
-      </el-aside>
-
-      <el-container>
-        <el-header style="text-align: right; font-size: 12px">
-          <el-dropdown>
-            <i class="el-icon-setting" style="margin-right: 15px"></i>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>查看</el-dropdown-item>
-              <el-dropdown-item>新增</el-dropdown-item>
-              <el-dropdown-item>删除</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-          <span>王小虎</span>
-        </el-header>
-
-        <el-main>
-          <el-table :data="tableData">
-            <el-table-column prop="date" label="日期" width="140">
-            </el-table-column>
-            <el-table-column prop="name" label="姓名" width="120">
-            </el-table-column>
-            <el-table-column prop="address" label="地址">
-            </el-table-column>
-          </el-table>
-        </el-main>
-      </el-container>
-    </el-container>
-  </el-card>
+  <el-submenu v-if="group.children && group.children.length >= 1" :index="group.group_code"
+              :popper-append-to-body="false">
+    <template slot="title">
+      <span>{{ group.name }}</span>
+    </template>
+    <sub-group v-for="group in group.children" @selectGroup="selectGroup" :key="group.id" :group="group"></sub-group>
+  </el-submenu>
+  <el-menu-item v-else :index="group.group_code" ref="li">
+    <a href="javascript:;" @click="selectGroup(group.group_code)"><span>{{ group.name }}</span></a>
+  </el-menu-item>
 </template>
 
 <script>
-import mixinViewModule from '@/mixins/view-module'
-import AddOrUpdate from './asi-group-add-or-update'
-import { addDynamicRoute } from '@/router'
+import SubGroup from './asi-sub-group'
+
 export default {
-  mixins: [mixinViewModule],
+  name: 'sub-group',
   data () {
     return {
-      mixinViewModuleOptions: {
-        getDataListURL: '/dict/type',
-        getDataListIsPage: true,
-        deleteURL: '/dict/type',
-        deleteIsBatch: true
-      },
-      dataForm: {
-        id: 0,
-        group_name: '',
-        group_code: ''
-      }
+      browserTabOpenList: [
+        '42',
+      ]
+    }
+  },
+  props: {
+    group: {
+      type: Object,
+      required: true
     }
   },
   components: {
-    AddOrUpdate
+    SubGroup
+  },
+  created () {
+    this.$nextTick(() => {
+      if (this.$refs.li) {
+        let $li = this.$refs.li.$el
+        let $a = $li.firstElementChild
+        if ($a) {
+          let pl = '0', pr = '0'
+          if ($li.currentStyle) {
+            pl = $li.currentStyle['paddingLeft']
+            pr = $li.currentStyle['paddingRight']
+          } else {
+            pl = window.document.defaultView.getComputedStyle($li, null)['paddingLeft']
+            pr = window.document.defaultView.getComputedStyle($li, null)['paddingRight']
+          }
+          $li.setAttribute('style', `padding-left: 0; padding-right: 0;`)
+          $a.setAttribute('style', `padding-left: ${pl}; padding-right: ${pr};`)
+        }
+      }
+    })
+
   },
   methods: {
-    // 子级
-    childHandle (row) {
-
+    selectGroup (code) {
+      var vm = this
+      vm.$emit('selectGroup', code)
     }
   }
 }
 </script>
+
+<style lang="scss">
+.aui-sidebar__menu {
+  .el-menu-item > a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+}
+</style>
