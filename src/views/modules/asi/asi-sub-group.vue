@@ -7,7 +7,7 @@
     <sub-group v-for="group in group.children" @selectGroup="selectGroup" :key="group.id" :group="group"></sub-group>
   </el-submenu>
   <el-menu-item v-else :index="group.group_code" ref="li">
-    <a href="javascript:;" @click="selectGroup(group.group_code)"><span>{{ group.name }}</span></a>
+    <a href="javascript:;" @click="selectGroup(group)"><span>{{ group.name }}</span></a>
   </el-menu-item>
 </template>
 

@@ -14,17 +14,14 @@
         <el-form-item>
           <el-button @click="addOrUpdateHandle()">{{ $t('add') }}</el-button>
         </el-form-item>
-        <el-form-item>
-          <el-button  type="danger" @click="deleteHandle()">{{ $t('deleteBatch') }}</el-button>
-        </el-form-item>
       </el-form>
       <el-table
         v-loading="dataListLoading"
         :data="dataList"
         row-key="id"
         style="width: 100%;">
-        <el-table-column prop="name" label="分组名称" header-align="center" align="center" width="150"></el-table-column>
-        <el-table-column prop="info" label="描述" header-align="center" align="center" width="250"></el-table-column>
+        <el-table-column prop="name" label="分组名称" header-align="center" align="center" width="300"></el-table-column>
+        <el-table-column prop="info" label="描述" header-align="center" align="center" width="300"></el-table-column>
         <el-table-column prop="group_type" label="类型" sortable="custom" header-align="center" align="center"></el-table-column>
         <el-table-column prop="agency_code" label="租户编码" header-align="center" align="center"></el-table-column>
         <el-table-column  :label="$t('handle')" fixed="right" header-align="center" align="center" width="150">

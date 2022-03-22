@@ -10,7 +10,7 @@
       <el-main>
         <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
           <el-form-item>
-            <el-button @click="addOrUpdateHandle()">{{ $t('add') }}</el-button>
+            <el-button @click="addOrUpdateHandle()">{{ $t('add') }}-{{this.dataForm.group_name}}</el-button>
           </el-form-item>
         </el-form>
         <el-table :data="columsList">
@@ -67,14 +67,15 @@ export default {
         this.$refs.addOrUpdate.init()
       })
     },
-    selectGroup (groupCode) {
+    selectGroup (group) {
       // eslint-disable-next-line eqeqeq
-      if (this.dataForm.group_code != groupCode) {
-        this.dataForm.group_code = groupCode
+      if (this.dataForm.group_code != group.group_code) {
+        this.dataForm.group_code = group.group_code
+        this.dataForm.group_name = group.name
         this.getColumsList()
       }
 
-      console.log(groupCode)
+
     },
     getGroupList () {
       return this.$http.get('/asi/group/list').then(({ data: res }) => {
