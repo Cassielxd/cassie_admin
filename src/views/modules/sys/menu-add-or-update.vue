@@ -1,10 +1,12 @@
 <template>
-  <el-dialog :visible.sync="visible" :title="!dataForm.id ? $t('add') : $t('update')" :close-on-click-modal="false" :close-on-press-escape="false">
-    <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmitHandle()" label-width="120px">
+  <el-dialog :visible.sync="visible" :title="!dataForm.id ? $t('add') : $t('update')" :close-on-click-modal="false"
+             :close-on-press-escape="false">
+    <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmitHandle()"
+             label-width="120px">
       <el-form-item prop="type" :label="$t('menu.type')" size="mini">
         <el-radio-group v-model="dataForm.menu_type" :disabled="!!dataForm.id">
           <el-radio :label="0">{{ $t('menu.type0') }}</el-radio>
-          <el-radio :label="1">{{ $t('menu.type1') }}</el-radio>
+          <el-radio :label="1">资源</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item prop="name" :label="$t('menu.name')">
@@ -13,44 +15,59 @@
       <el-form-item prop="parent_name" :label="$t('menu.parentName')" class="menu-list">
         <el-popover v-model="menuListVisible" ref="menuListPopover" placement="bottom-start" trigger="click">
           <el-tree
-            :data="menuList"
-            :props="{ label: 'name', children: 'children' }"
-            node-key="id"
-            ref="menuListTree"
-            :highlight-current="true"
-            :expand-on-click-node="false"
-            accordion
-            @current-change="menuListTreeCurrentChangeHandle">
+              :data="menuList"
+              :props="{ label: 'name', children: 'children' }"
+              node-key="id"
+              ref="menuListTree"
+              :highlight-current="true"
+              :expand-on-click-node="false"
+              accordion
+              @current-change="menuListTreeCurrentChangeHandle">
           </el-tree>
         </el-popover>
-        <el-input v-model="dataForm.parent_name" v-popover:menuListPopover :readonly="true" :placeholder="$t('menu.parentName')">
-          <i v-if="dataForm.pid !== '0'" slot="suffix" @click.stop="deptListTreeSetDefaultHandle()" class="el-icon-circle-close el-input__icon"></i>
+        <el-input v-model="dataForm.parent_name" v-popover:menuListPopover :readonly="true"
+                  :placeholder="$t('menu.parentName')">
+          <i v-if="dataForm.pid !== '0'" slot="suffix" @click.stop="deptListTreeSetDefaultHandle()"
+             class="el-icon-circle-close el-input__icon"></i>
         </el-input>
       </el-form-item>
       <el-form-item v-if="dataForm.menu_type === 0" prop="url" :label="$t('menu.url')">
         <el-input v-model="dataForm.url" :placeholder="$t('menu.url')"></el-input>
       </el-form-item>
+      <el-form-item v-if="dataForm.menu_type === 1" prop="path" label="资源请求路径">
+        <el-input v-model="dataForm.path" placeholder="资源请求路径"></el-input>
+      </el-form-item>
+      <el-form-item prop="method" label="请求类型" v-if="dataForm.menu_type === 1" size="mini">
+        <el-radio-group v-model="dataForm.method">
+          <el-radio label="GET">GET</el-radio>
+          <el-radio label="POST">POST</el-radio>
+          <el-radio label="PUT">PUT</el-radio>
+          <el-radio label="DELETE">DELETE</el-radio>
+        </el-radio-group>
+      </el-form-item>
       <el-form-item prop="sort" :label="$t('menu.sort')">
-        <el-input-number v-model="dataForm.sort" controls-position="right" :min="0" :label="$t('menu.sort')"></el-input-number>
+        <el-input-number v-model="dataForm.sort" controls-position="right" :min="0"
+                         :label="$t('menu.sort')"></el-input-number>
       </el-form-item>
       <el-form-item v-if="dataForm.menu_type === 0" prop="icon" :label="$t('menu.icon')" class="icon-list">
-        <el-popover v-model="iconListVisible" ref="iconListPopover" placement="bottom-start" trigger="click" popper-class="mod-sys__menu-icon-popover">
+        <el-popover v-model="iconListVisible" ref="iconListPopover" placement="bottom-start" trigger="click"
+                    popper-class="mod-sys__menu-icon-popover">
           <div class="mod-sys__menu-icon-inner">
             <div class="mod-sys__menu-icon-list">
               <el-button
-                v-for="(item, index) in iconList"
-                :key="index"
-                @click="iconListCurrentChangeHandle(item)"
-                :class="{ 'is-active': dataForm.icon === item }">
-                <svg class="icon-svg" aria-hidden="true"><use :xlink:href="`#${item}`"></use></svg>
+                  v-for="(item, index) in iconList"
+                  :key="index"
+                  @click="iconListCurrentChangeHandle(item)"
+                  :class="{ 'is-active': dataForm.icon === item }">
+                <svg class="icon-svg" aria-hidden="true">
+                  <use :xlink:href="`#${item}`"></use>
+                </svg>
               </el-button>
             </div>
           </div>
         </el-popover>
-        <el-input v-model="dataForm.icon" v-popover:iconListPopover :readonly="true" :placeholder="$t('menu.icon')"></el-input>
-      </el-form-item>
-      <el-form-item prop="permissions" :label="$t('menu.permissions')">
-        <el-input v-model="dataForm.permissions" :placeholder="$t('menu.permissionsTips')"></el-input>
+        <el-input v-model="dataForm.icon" v-popover:iconListPopover :readonly="true"
+                  :placeholder="$t('menu.icon')"></el-input>
       </el-form-item>
     </el-form>
     <template slot="footer">
@@ -63,6 +80,7 @@
 <script>
 import debounce from 'lodash/debounce'
 import { getIconList } from '@/utils'
+
 export default {
   data () {
     return {
@@ -78,11 +96,13 @@ export default {
         pid: 0,
         parent_name: '',
         url: '',
+        path: '',
         permissions: '',
         sort: 0,
-        icon: ''
-      }
-    }
+        icon: '',
+        method:''
+  }
+  }
   },
   computed: {
     dataRule () {
@@ -122,7 +142,8 @@ export default {
           return this.$message.error(res.msg)
         }
         this.menuList = res.data
-      }).catch(() => {})
+      }).catch(() => {
+      })
     },
     // 获取信息
     getInfo () {
@@ -138,7 +159,8 @@ export default {
           return this.deptListTreeSetDefaultHandle()
         }
         this.$refs.menuListTree.setCurrentKey(this.dataForm.pid)
-      }).catch(() => {})
+      }).catch(() => {
+      })
     },
     // 上级菜单树, 设置默认值
     deptListTreeSetDefaultHandle () {
@@ -175,7 +197,8 @@ export default {
               this.$emit('refreshDataList')
             }
           })
-        }).catch(() => {})
+        }).catch(() => {
+        })
       })
     }, 1000, { 'leading': true, 'trailing': false })
   }
@@ -191,23 +214,28 @@ export default {
       cursor: pointer;
     }
   }
+
   &-icon-popover {
     width: 458px;
     overflow: hidden;
   }
+
   &-icon-inner {
     width: 478px;
     max-height: 258px;
     overflow-x: hidden;
     overflow-y: auto;
   }
+
   &-icon-list {
     width: 458px;
     padding: 0;
     margin: -8px 0 0 -8px;
+
     > .el-button {
       padding: 8px;
       margin: 8px 0 0 8px;
+
       > span {
         display: inline-block;
         vertical-align: middle;
