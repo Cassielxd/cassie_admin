@@ -1,42 +1,35 @@
 <template>
-  <el-dialog :visible.sync="visible" :title="!dataForm.id ? $t('add') : $t('update')" :close-on-click-modal="false"
+  <el-dialog :visible.sync="visible" :title="(!dataForm.id ? $t('add') : $t('update'))+'-'+curarrGroup.name" :close-on-click-modal="false"
              :close-on-press-escape="false">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmitHandle()"
              label-width="120px">
-      <el-form-item prop="group_type" label="类型" size="mini">
-        <el-radio-group v-model="dataForm.group_type" :disabled="!!dataForm.id">
-          <el-radio label="TABLE">TABLE</el-radio>
-          <el-radio label="FROM">FROM</el-radio>
+      <el-form-item prop="column_name" label="列名称">
+        <el-input v-model="dataForm.column_name" placeholder="列名称"></el-input>
+      </el-form-item>
+      <el-form-item prop="column_code" label="列编码">
+        <el-input v-model="dataForm.column_code" placeholder="列编码"></el-input>
+      </el-form-item>
+      <el-form-item prop="data_type" label="数组类型">
+        <el-select v-model="dataForm.data_type" placeholder="数据类型" clearable>
+          <el-option v-for="data in dataTypes" :key="data.dict_value" :label="data.dict_label" :value="data.dict_value">
+            {{ data.dict_label }}
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item prop="data_type" label="数组类型">
+        <el-radio-group v-model="dataForm.is_required">
+          <el-radio label="Y">必填</el-radio>
+          <el-radio label="N">可空</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item prop="parent_name" label="父分组" class="menu-list">
-        <el-popover v-model="groupListVisible" ref="menuListPopover" placement="bottom-start" trigger="click">
-          <el-tree
-              :data="groupList"
-              :props="{ label: 'name', children: 'children' }"
-              node-key="group_code"
-              ref="groupListTree"
-              :highlight-current="true"
-              :expand-on-click-node="false"
-              accordion
-              @current-change="groupListTreeCurrentChangeHandle">
-          </el-tree>
-        </el-popover>
-        <el-input v-model="dataForm.parent_name" v-popover:menuListPopover :readonly="true" placeholder="顶级父分组">
-          <i v-if="dataForm.parent_group_code !== '0'" @click.stop="groupListListTreeSetDefaultHandle()" slot="suffix"
-             class="el-icon-circle-close el-input__icon"></i>
-        </el-input>
+      <el-form-item prop="display_order" label="最大长度">
+        <el-input-number v-model="dataForm.max_length" controls-position="right" :min="1"
+                         label="最大长度"></el-input-number>
       </el-form-item>
-      <el-form-item prop="name" label="分组名称">
-        <el-input v-model="dataForm.name" placeholder="业务分组名称"></el-input>
+      <el-form-item prop="display_order" label="排序">
+        <el-input-number v-model="dataForm.display_order" controls-position="right" :min="0"
+                         :label="$t('dept.sort')"></el-input-number>
       </el-form-item>
-      <el-form-item prop="info" label="描述">
-        <el-input v-model="dataForm.info" placeholder="分组描述"></el-input>
-      </el-form-item>
-      <el-form-item prop="group_code" label="分组编码">
-        <el-input v-model="dataForm.group_code" placeholder="分组编码唯一"></el-input>
-      </el-form-item>
-
     </el-form>
     <template slot="footer">
       <el-button @click="visible = false">{{ $t('cancel') }}</el-button>
@@ -47,74 +40,49 @@
 
 <script>
 import debounce from 'lodash/debounce'
+import { getDictDataList } from '@/utils'
 
 export default {
   data () {
     return {
       visible: false,
       groupListVisible: false,
-      groupList: [],
+      dataTypes: [],
+      curarrGroup: {},
       dataForm: {
         id: '',
-        name: '',
-        info: '',
+        column_name: '',
         group_code: '',
-        parent_group_code: '',
-        parent_name: '',
-        group_type: ''
+        column_code: '',
+        data_type: '',
+        max_length: 10,
+        is_required: 'Y',
+        example_value: '',
+        display_order: 0
       }
     }
   },
   computed: {
     dataRule () {
-      return {
-        name: [
-          { required: true, message: this.$t('validate.required'), trigger: 'blur' }
-        ],
-        info: [
-          { required: true, message: this.$t('validate.required'), trigger: 'blur' }
-        ],
-        group_code: [
-          { required: true, message: this.$t('validate.required'), trigger: 'blur' }
-        ]
-      }
+      return {}
     }
   },
   methods: {
-    init () {
+    init (curarrGroup) {
       this.visible = true
+      this.curarrGroup = curarrGroup
       this.$nextTick(() => {
         this.$refs['dataForm'].resetFields()
-        this.getGroupList().then(() => {
-          if (this.dataForm.id) {
-            this.getInfo()
-            this.formatList(this.dataForm.parent_group_code)
-          }
-        })
-      })
-    },
-    getGroupList () {
-      return this.$http.get('/asi/group/list?parent_group_code=0').then(({ data: res }) => {
-        // eslint-disable-next-line eqeqeq
-        if (res.code != 0) {
-          return this.$message.error(res.msg)
+        // eslint-disable-next-line no-undef
+        this.dataTypes = getDictDataList('asi_colums_type')
+        if (this.dataForm.id) {
+          this.getInfo()
         }
-        this.groupList = res.data
-      }).catch(() => {
       })
-    },
-    groupListListTreeSetDefaultHandle () {
-      this.dataForm.parent_group_code = '0'
-      this.dataForm.parent_name = '顶级分组'
-    },
-    groupListTreeCurrentChangeHandle (data) {
-      this.dataForm.parent_group_code = data.group_code
-      this.dataForm.parent_name = data.name
-      this.groupListVisible = false
     },
     // 获取信息
     getInfo () {
-      this.$http.get(`/asi/group/${this.dataForm.id}`).then(({ data: res }) => {
+      this.$http.get(`/asi/column/get_column_one/${this.dataForm.id}`).then(({ data: res }) => {
         // eslint-disable-next-line eqeqeq
         if (res.code != 0) {
           return this.$message.error(res.msg)
@@ -126,16 +94,6 @@ export default {
       }).catch(() => {
       })
     },
-    // eslint-disable-next-line camelcase
-    formatList (groupCode) {
-      let list = this.groupList
-      // eslint-disable-next-line eqeqeq
-      let f = list.filter(v => groupCode == v.group_code)
-      if (f.length > 0) {
-        this.dataForm.parent_name = f[0].name
-        this.$refs.groupListTree.setCurrentKey(groupCode)
-      }
-    },
     // 表单提交
     dataFormSubmitHandle: debounce(function () {
       this.$refs['dataForm'].validate((valid) => {
@@ -143,7 +101,8 @@ export default {
           return false
         }
 
-        this.$http[!this.dataForm.id ? 'post' : 'put']('/asi/group', this.dataForm).then(({ data: res }) => {
+        this.$http[!this.dataForm.id ? 'post' : 'put']('/asi/column/list/' + this.curarrGroup.group_code, this.dataForm).then(({ data: res }) => {
+          // eslint-disable-next-line eqeqeq
           if (res.code != 0) {
             return this.$message.error(res.msg)
           }

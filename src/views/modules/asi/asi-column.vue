@@ -10,23 +10,31 @@
       <el-main>
         <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
           <el-form-item>
-            <el-button @click="addOrUpdateHandle()">{{ $t('add') }}-{{ this.dataForm.group_name }}</el-button>
+            <el-button @click="addOrUpdateHandle()">{{ $t('add') }}-{{ this.curarrGroup.name }}</el-button>
           </el-form-item>
         </el-form>
         <el-table :data="columsList">
-          <el-table-column prop="column_name" label="列名" width="200">
+          <el-table-column prop="column_name" label="列名" width="150">
           </el-table-column>
-          <el-table-column prop="data_type" label="类型" width="200">
+          <el-table-column prop="data_type" label="类型" width="150">
+            <template slot-scope="scope">
+              {{ $getDictLabel('asi_colums_type', scope.row.data_type) }}
+            </template>
           </el-table-column>
-          <el-table-column prop="column_code" label="列编码" width="200">
+          <el-table-column prop="column_code" label="列编码" width="150">
           </el-table-column>
-          <el-table-column prop="is_required" label="是否必填" width="200"></el-table-column>
-          <el-table-column prop="group_code" label="业务分组code" width="200"></el-table-column>
-          <el-table-column prop="agency_code" label="租户code" width="200">
+          <el-table-column prop="is_required" label="是否必填" width="100"></el-table-column>
+          <el-table-column prop="max_length" label="最大长度" width="100"></el-table-column>
+          <el-table-column prop="group_code" label="业务分组code" width="150"></el-table-column>
+          <el-table-column prop="agency_code" label="租户code" width="100">
           </el-table-column>
           <el-table-column :label="$t('handle')" fixed="right" header-align="center" align="center">
             <template slot-scope="scope">
-              <el-button type="text" size="small">{{ $t('delete') }}</el-button>
+              <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.id)">{{
+                  $t('update')
+                }}
+              </el-button>
+              <el-button type="text" @click="deleteHandle(scope.row.id)" size="small">{{ $t('delete') }}</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -43,12 +51,12 @@ import AddOrUpdate from './asi-column-add-or-update'
 export default {
   data () {
     return {
+      curarrGroup: {},
       addOrUpdateVisible: false,
       groupList: [],
       columsList: [],
       dataForm: {
         id: 0,
-        group_name: '',
         group_code: ''
       }
     }
@@ -63,16 +71,44 @@ export default {
   methods: {
     addOrUpdateHandle (id) {
       this.addOrUpdateVisible = true
+      // eslint-disable-next-line eqeqeq
+      if (!this.curarrGroup.group_code || this.curarrGroup.group_code == '') {
+        return this.$message.error('请选择一个业务分组')
+      }
       this.$nextTick(() => {
         this.$refs.addOrUpdate.dataForm.id = id
-        this.$refs.addOrUpdate.init()
+        this.$refs.addOrUpdate.init(this.curarrGroup)
+      })
+    },
+    deleteHandle (id) {
+      this.$confirm(this.$t('prompt.info', { 'handle': this.$t('delete') }), this.$t('prompt.title'), {
+        confirmButtonText: this.$t('confirm'),
+        cancelButtonText: this.$t('cancel'),
+        type: 'warning'
+      }).then(() => {
+        this.$http.delete('/asi/column/get_column_one/' + id
+        ).then(({ data: res }) => {
+          // eslint-disable-next-line eqeqeq
+          if (res.code != 0) {
+            return this.$message.error(res.msg)
+          }
+          this.$message({
+            message: this.$t('prompt.success'),
+            type: 'success',
+            duration: 500,
+            onClose: () => {
+              this.getColumsList()
+            }
+          })
+        }).catch(() => {
+        })
+      }).catch(() => {
       })
     },
     selectGroup (group) {
       // eslint-disable-next-line eqeqeq
-      if (this.dataForm.group_code != group.group_code) {
-        this.dataForm.group_code = group.group_code
-        this.dataForm.group_name = group.name
+      if (this.curarrGroup.group_code != group.group_code) {
+        this.curarrGroup = group
         this.getColumsList()
       }
 
@@ -88,7 +124,7 @@ export default {
       })
     },
     getColumsList () {
-      return this.$http.get('/asi/column/list/' + this.dataForm.group_code).then(({ data: res }) => {
+      return this.$http.get('/asi/column/list/' + this.curarrGroup.group_code).then(({ data: res }) => {
         // eslint-disable-next-line eqeqeq
         if (res.code != 0) {
           return this.$message.error(res.msg)

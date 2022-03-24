@@ -16,7 +16,7 @@ export function hasPermission (key) {
 export function getDictDataList (dictType) {
   const type = window.SITE_CONFIG['dictList'].find((element) => (element.dict_type === dictType))
   if (type) {
-    return type.dataList
+    return type.data_list
   } else {
     return []
   }
@@ -30,9 +30,9 @@ export function getDictDataList (dictType) {
 export function getDictLabel (dictType, dictValue) {
   const type = window.SITE_CONFIG['dictList'].find((element) => (element.dict_type === dictType))
   if (type) {
-    const val = type.dataList.find((element) => (element.dictValue === dictValue + ''))
+    const val = type.data_list.find((element) => (element.dict_value === dictValue + ''))
     if (val) {
-      return val.dictLabel
+      return val.dict_label
     } else {
       return dictValue
     }
