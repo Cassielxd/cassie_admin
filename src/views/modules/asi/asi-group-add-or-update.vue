@@ -56,6 +56,7 @@ export default {
       groupList: [],
       dataForm: {
         id: '',
+        cate_id: 0,
         name: '',
         info: '',
         group_code: '',

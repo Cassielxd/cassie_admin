@@ -1,5 +1,6 @@
 <template>
-  <el-container style="height: 500px; border: 1px solid #eee">
+  <el-card shadow="never" class="aui-card--fill">
+  <el-container style="height: 100%; border: 1px solid #eee">
     <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
       <el-menu>
         <sub-group v-for="group in groupList" @selectGroup="selectGroup" :key="group.group_code" :group="group"/>
@@ -13,7 +14,7 @@
             <el-button @click="addOrUpdateHandle()">{{ $t('add') }}-{{ this.curarrGroup.name }}</el-button>
           </el-form-item>
         </el-form>
-        <el-table :data="columsList">
+        <el-table :data="columsList" border style="width: 100%;">
           <el-table-column prop="column_name" label="列名" width="150">
           </el-table-column>
           <el-table-column prop="data_type" label="类型" width="150">
@@ -42,6 +43,7 @@
     </el-container>
     <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getColumsList"></add-or-update>
   </el-container>
+  </el-card>
 </template>
 
 <script>

@@ -6,14 +6,15 @@
     </template>
     <sub-group v-for="group in group.children" @selectGroup="selectGroup" :key="group.id" :group="group"></sub-group>
   </el-submenu>
-  <el-menu-item v-else :index="group.group_code" ref="li">
-    <a href="javascript:;" @click="selectGroup(group)"><span>{{ group.name }}</span></a>
+  <el-menu-item v-else :index="group.group_code" ref="li"  @click="selectGroup(group)">
+    <template slot="title">
+      <span>{{ group.name }}</span>
+    </template>
   </el-menu-item>
 </template>
 
 <script>
 import SubGroup from './asi-sub-group'
-
 export default {
   name: 'sub-group',
   data () {

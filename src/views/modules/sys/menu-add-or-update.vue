@@ -117,7 +117,7 @@ export default {
     },
     // 获取菜单列表
     getMenuList () {
-      return this.$http.get('/menu/list?type=0').then(({ data: res }) => {
+      return this.$http.get('/menu/nav?type=0').then(({ data: res }) => {
         if (res.code != 0) {
           return this.$message.error(res.msg)
         }

@@ -95,13 +95,8 @@ export default {
         cancelButtonText: this.$t('cancel'),
         type: 'warning'
       }).then(() => {
-        this.$http.post('/auth/oauth/logout').then(({ data: res }) => {
-          if (res.code !== 0) {
-            return this.$message.error(res.msg)
-          }
-          clearLoginInfo()
-          this.$router.push({ name: 'login' })
-        }).catch(() => {})
+        clearLoginInfo()
+        this.$router.push({ name: 'login' })
       }).catch(() => {})
     }
   }
