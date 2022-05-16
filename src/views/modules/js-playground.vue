@@ -86,8 +86,9 @@ export default {
         this.coder.setValue(this.code)
 
         // 支持双向绑定
-        this.coder.on('change', (coder) => {
+        this.coder.on('cursorActivity', (coder) => {
           this.code = coder.getValue()
+          //coder.showHint();
 
         })
 
