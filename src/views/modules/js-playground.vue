@@ -1,18 +1,16 @@
 <template>
   <el-card shadow="never" class="aui-card--fill">
     <el-button @click="handleRun">运行</el-button>
-    <div class="mod-home">
-      <el-form ref="form" :model="form" label-width="80px" class="form-inline">
-        <el-form-item label="脚本">
-          <div class="in-coder-panel" style="width: 500px">
-            <textarea ref="textarea"></textarea>
-          </div>
-        </el-form-item>
-        <el-form-item label="结果">
+    <el-container style="height: 100%; border: 2px solid #eee">
+      <el-row style="width: 100%">
+        <el-col :span="12" style="border-right: 2px solid #eee" >
+            <textarea ref="textarea" style="width: 500px; height: 100%;"></textarea>
+        </el-col>
+        <el-col :span="12">
           <div v-html="result"></div>
-        </el-form-item>
-      </el-form>
-    </div>
+        </el-col>
+      </el-row>
+    </el-container>
   </el-card>
 </template>
 
@@ -60,6 +58,7 @@ export default {
       // 编辑器实例
       coder: null,
       result:'',
+      foldGutter: true,
       // 默认配置
       options: {
         // 缩进格式
@@ -67,6 +66,7 @@ export default {
         // 主题，对应主题库 JS 需要提前引入
         theme: 'idea',
         autocorrect: true,
+        matchBrackets: true,
         // 显示行号
         lineNumbers: true,
         line: true,
