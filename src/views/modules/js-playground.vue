@@ -1,6 +1,9 @@
 <template>
   <el-card shadow="never" class="aui-card--fill">
     <el-button @click="handleRun">运行</el-button>
+    <el-button @click="anli(1)">获取数据字典</el-button>
+    <el-button @click="anli(2)">获取系统配置</el-button>
+    <el-button @click="anli(3)">获取用户</el-button>
     <el-container style="height: 100%; border: 2px solid #eee">
       <el-row style="width: 100%">
         <el-col :span="12" style="border-right: 2px solid #eee" >
@@ -127,6 +130,34 @@ export default {
         }).catch(() => {
         })
       },
+    anli(i) {
+          switch (i){
+            case 1:{
+              this.code =`
+let  data = Cassie.getAllDict();
+for(let i=0;i<data.length;i++){
+  console.log("name:"+data[i].dict_name);
+}
+              `;
+              this.coder.setValue(this.code)
+              break;
+            }
+            case 2:{
+              this.code =`
+let  data = Cassie.getConfig();
+console.log(data.redis_url);`;
+              this.coder.setValue(this.code)
+              break;
+            }
+            case 3:{
+              this.code =`
+let  data = Cassie.getUserById("1");
+console.log(data);`;
+              this.coder.setValue(this.code)
+              break;
+            }
+          }
+    }
     }
   }
 </script>
