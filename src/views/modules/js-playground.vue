@@ -121,6 +121,7 @@ export default {
       },
       /** 按钮操作 */
       handleRun() {
+
         this.$http.post('/js/run',{code:this.code}).then(({ data: res }) => {
           // eslint-disable-next-line eqeqeq
           if (res.code != 0) {
@@ -131,6 +132,7 @@ export default {
         })
       },
     anli(i) {
+      this.result = '';
           switch (i){
             case 1:{
               this.code =`
