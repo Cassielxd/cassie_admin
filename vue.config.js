@@ -33,8 +33,8 @@ module.exports = {
     open: true,
     port: 8001,
     overlay: {
-      errors: true,
-      warnings: true
+      errors: false,
+      warnings: false
     }
   },
   configureWebpack: {

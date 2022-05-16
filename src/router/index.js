@@ -33,6 +33,7 @@ export const moduleRoutes = {
   meta: { title: '主入口布局' },
   children: [
     { path: '/home', component: () => import('@/views/modules/home'), name: 'home', meta: { title: '首页', isTab: true } },
+    { path: '/jsruntime', component: () => import('@/views/modules/js-playground'), name: 'js-runtime', meta: { title: 'js-runtime', isTab: true } },
     { path: '/iframe', component: null, name: 'iframe', meta: { title: 'iframe', isTab: true } },
   ]
 }
