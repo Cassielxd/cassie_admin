@@ -1,9 +1,9 @@
 <template>
   <el-card shadow="never" class="aui-card--fill">
-    <el-button @click="handleRun">运行</el-button>
     <el-button @click="anli(1)">获取数据字典</el-button>
     <el-button @click="anli(2)">获取系统配置</el-button>
     <el-button @click="anli(3)">获取用户</el-button>
+    <el-button @click="anli(4)">获取当前登录用户</el-button>
     <el-container style="height: 100%; border: 2px solid #eee">
       <el-row style="width: 100%">
         <el-col :span="12" style="border-right: 2px solid #eee" >
@@ -14,9 +14,9 @@
         </el-col>
       </el-row>
     </el-container>
+    <el-button @click="handleRun">运行代码</el-button>
   </el-card>
 </template>
-
 <script>
 // 引入全局实例
 import CodeMirror from 'codemirror'
@@ -24,13 +24,8 @@ import CodeMirror from 'codemirror'
 import 'codemirror/lib/codemirror.css'
 // 引入主题后还需要在 options 中指定主题才会生效
 import 'codemirror/theme/idea.css'
-
-// 需要引入具体的语法高亮库才会有对应的语法高亮效果
-// codemirror 官方其实支持通过 /addon/mode/loadmode.js 和 /mode/meta.js 来实现动态加载对应语法高亮库
-// 但 vue 貌似没有无法在实例初始化后再动态加载对应 JS ，所以此处才把对应的 JS 提前引入
 import 'codemirror/mode/javascript/javascript.js'
 import 'codemirror/mode/css/css.js'
-
 //代码补全提示
 import 'codemirror/addon/hint/anyword-hint.js';
 import 'codemirror/addon/hint/css-hint.js';
@@ -38,8 +33,6 @@ import 'codemirror/addon/hint/html-hint.js';
 import 'codemirror/addon/hint/javascript-hint.js';
 import 'codemirror/addon/hint/show-hint.css';
 import 'codemirror/addon/hint/show-hint.js';
-
-//代码版本差异比较
 import 'codemirror/addon/merge/merge.js'
 import 'codemirror/addon/merge/merge.css'
 import DiffMatchPatch from 'diff-match-patch'
@@ -154,6 +147,13 @@ console.log(data.redis_url);`;
             case 3:{
               this.code =`
 let  data = Cassie.getUserById("1");
+console.log(data);`;
+              this.coder.setValue(this.code)
+              break;
+            }
+            case 4:{
+              this.code =`let request_model = request_context.request_model;
+let data = Cassie.getUserById(request_model.uid+"");
 console.log(data);`;
               this.coder.setValue(this.code)
               break;
