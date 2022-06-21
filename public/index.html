@@ -33,15 +33,15 @@
   <% } %>
   <!-- 集成测试环境 -->
   <% if (process.env.VUE_APP_NODE_ENV === 'prod:sit') { %>
-    <script>window.SITE_CONFIG['apiURL'] = 'http://localhost:8080';</script>
+    <script>window.SITE_CONFIG['apiURL'] = 'http://localhost:9999/admin';</script>
   <% } %>
   <!-- 验收测试环境 -->
   <% if (process.env.VUE_APP_NODE_ENV === 'prod:uat') { %>
-    <script>window.SITE_CONFIG['apiURL'] = 'http://localhost:8080';</script>
+    <script>window.SITE_CONFIG['apiURL'] = 'http://localhost:9999/admin';</script>
   <% } %>
   <!-- 生产环境 -->
   <% if (process.env.VUE_APP_NODE_ENV === 'prod') { %>
-    <script>window.SITE_CONFIG['apiURL'] = 'http://localhost:8080';</script>
+    <script>window.SITE_CONFIG['apiURL'] = 'http://localhost:9999/admin';</script>
   <% } %>
 </head>
 <body>
