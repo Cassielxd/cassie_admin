@@ -84,10 +84,11 @@ body {
     </style>
     <script>
         const invoke = window.__TAURI__.invoke
-      
           document.addEventListener('DOMContentLoaded', () => {
-      
-          invoke('close_splashscreen')
+            setTimeout( function(){
+                invoke('close_splashscreen')
+            }, 5 * 1000 );
+          
       })
         </script>
 </head>
