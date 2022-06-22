@@ -21,7 +21,8 @@ export const pageRoutes = [
       next()
     }
   },
-  { path: '/login', component: () => import('@/views/pages/login'), name: 'login', meta: { title: '登录' } }
+  { path: '/login', component: () => import('@/views/pages/login'), name: 'login', meta: { title: '登录' } },
+  { path: '/jsruntime', component: () => import('@/views/modules/js-playground'), name: 'js-runtime', meta: { title: 'js-runtime' } }
 ]
 
 // 模块路由(基于主入口布局页面)
@@ -33,7 +34,6 @@ export const moduleRoutes = {
   meta: { title: '主入口布局' },
   children: [
     { path: '/home', component: () => import('@/views/modules/home'), name: 'home', meta: { title: '首页', isTab: true } },
-    { path: '/jsruntime', component: () => import('@/views/modules/js-playground'), name: 'js-runtime', meta: { title: 'js-runtime', isTab: true } },
     { path: '/iframe', component: null, name: 'iframe', meta: { title: 'iframe', isTab: true } },
   ]
 }

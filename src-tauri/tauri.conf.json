@@ -3,8 +3,9 @@
   "build": {
     "beforeBuildCommand": "",
     "beforeDevCommand": "",
-    "devPath": "../dist",
-    "distDir": "../dist"
+    "devPath": "http://localhost:8001",
+    "distDir": "../dist",
+    "withGlobalTauri": true
   },
   "package": {
     "productName": "cassie_desktop",
@@ -17,7 +18,7 @@
     "bundle": {
       "active": true,
       "category": "DeveloperTool",
-      "copyright": "",
+      "copyright": "版权所有: 348040933@qq.com",
       "deb": {
         "depends": []
       },
@@ -30,7 +31,7 @@
         "icons/icon.ico"
       ],
       "identifier": "com.cassie.dev",
-      "longDescription": "",
+      "longDescription": "rust axum 桌面演示版 使用 tauri开发 欢迎大家使用",
       "macOS": {
         "entitlements": null,
         "exceptionDomain": "",
@@ -39,12 +40,15 @@
         "signingIdentity": null
       },
       "resources": [],
-      "shortDescription": "",
+      "shortDescription": "rust axum 桌面演示版",
       "targets": "all",
       "windows": {
         "certificateThumbprint": null,
         "digestAlgorithm": "sha256",
-        "timestampUrl": ""
+        "timestampUrl": "",
+        "wix": {
+          "language": "zh-CN"
+        }
       }
     },
     "security": {
@@ -55,11 +59,14 @@
     },
     "windows": [
       {
+        "center":true,
         "fullscreen": false,
         "height": 800,
         "resizable": true,
         "title": "cassie_desktop",
-        "width": 1000
+        "width": 1000,
+        "minWidth": 600,
+        "minHeight": 400
       }
     ]
   }
