@@ -82,6 +82,14 @@ body {
     }
 }
     </style>
+    <script>
+        const invoke = window.__TAURI__.invoke
+      
+          document.addEventListener('DOMContentLoaded', () => {
+      
+          invoke('close_splashscreen')
+      })
+        </script>
 </head>
 <body>
     <div class="loader">
