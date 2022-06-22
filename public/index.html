@@ -43,8 +43,18 @@
   <% if (process.env.VUE_APP_NODE_ENV === 'prod') { %>
     <script>window.SITE_CONFIG['apiURL'] = 'http://localhost:9999/admin';</script>
   <% } %>
+
 </head>
 <body>
   <div id="app"></div>
 </body>
 </html>
+
+<script>
+  const invoke = window.__TAURI__.invoke
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+    invoke('close_splashscreen')
+})
+  </script>

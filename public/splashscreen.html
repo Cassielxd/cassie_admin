@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加载动画</title>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+}
+ 
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #444;
+}
+ 
+.loader {
+    position: relative;
+    width: 100%;
+    height: 60px;
+}
+ 
+.loader span {
+    position: absolute;
+    width: 30px;
+    height: 60px;
+    line-height: 60px;
+    margin: 0 10px;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    font-size: 40px;
+    transform: rotate(180deg);
+    opacity: 0;
+    animation: move 3s linear infinite;
+}
+.loader span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.loader span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+.loader span:nth-child(4) {
+    animation-delay: 0.6s;
+}
+.loader span:nth-child(5) {
+    animation-delay: 0.8s;
+}
+.loader span:nth-child(6) {
+    animation-delay: 1s;
+}
+.loader span:nth-child(7) {
+    animation-delay: 1.2s;
+}
+@keyframes move {
+    0% {
+        right: 0;
+        opacity: 0;
+    }
+ 
+    35% {
+        right: 41%;
+        opacity: 1;
+        transform: rotate(0deg);
+    }
+ 
+    65% {
+        right: 59%;
+        opacity: 1;
+        transform: rotate(0deg);
+    }
+ 
+    100% {
+        right: 100%;
+        opacity: 0;
+        transform: rotate(-180deg);
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="loader">
+        <span>L</span>
+        <span>O</span>
+        <span>A</span>
+        <span>D</span>
+        <span>I</span>
+        <span>N</span>
+        <span>G</span>
+    </div>
+</body>
+</html>

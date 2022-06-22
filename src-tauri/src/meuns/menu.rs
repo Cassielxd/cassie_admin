@@ -13,7 +13,7 @@ pub fn init_menu() -> Menu {
 pub fn menu_event(event:WindowMenuEvent){
     match event.menu_item_id() {
         "js_play_ground" => {
-            create_window(&event.window(),"js_play_ground","PlayGround","/#/jsruntime",Menu::default());   
+            create_window(event.window().app_handle(),"js_play_ground","PlayGround","/#/jsruntime",Menu::default());   
         }
         "socure_code" => {
             open_for_browser(&event.window(),"https://gitee.com/stringlxd");
