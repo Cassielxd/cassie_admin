@@ -12,7 +12,7 @@ export default {
     '$i18n.locale': 'i18nHandle'
   },
   created () {
-    this.i18nHandle(this.$i18n.locale)
+    this.i18nHandle(this.$i18n.locale);
   },
   methods: {
     i18nHandle (val, oldVal) {

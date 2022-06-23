@@ -1,7 +1,7 @@
 #![cfg_attr(all(not(debug_assertions), target_os = "windows"), windows_subsystem = "windows")]
 use app::{
     __cmd__c_create_window,
-    meuns::menu::{init_menu, init_system_tray, menu_event, system_tray_menu_event},
+    meuns::menu::{init_menu, init_system_tray, menu_event, system_tray_menu_event, windows_event},
     utils::c_create_window,
 };
 use tauri::Manager;
@@ -14,6 +14,7 @@ fn main() {
         .system_tray(init_system_tray())
         //系统设置
         .setup(|app| Ok(()))
+        .on_window_event(windows_event)
         //菜单点击事件
         .on_menu_event(menu_event)
         .on_system_tray_event(system_tray_menu_event)

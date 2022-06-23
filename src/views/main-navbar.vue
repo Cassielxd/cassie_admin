@@ -55,16 +55,11 @@ export default {
     UpdatePassword
   },
   created () {
-    // 未读通知数this.getUnReadCount()
-
   },
   methods: {
     myNoticeRouter () {
       this.$router.replace('sys-notice-user')
     },
-     closeScreenHandle () {
-          appWindow.close()
-        },
     //最小化
     minScreenHandle () {
        appWindow.minimize();
