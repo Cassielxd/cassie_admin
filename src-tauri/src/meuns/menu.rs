@@ -55,7 +55,7 @@ pub fn system_tray_menu_event(app: &AppHandle, event: SystemTrayEvent) {
 pub fn windows_event(event:GlobalWindowEvent){
     match  event.event(){
         tauri::WindowEvent::CloseRequested { api ,..} => {
-            //组织窗口默认关闭动作
+            //阻止窗口默认关闭动作
             api.prevent_close();
            let window = event.window().clone();
             confirm(Some(&event.window()), "关闭窗口", "确定要关闭当前窗口?", move|e|{
