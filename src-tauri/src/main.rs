@@ -5,7 +5,6 @@ use app::{
     utils::c_create_window,
 };
 use tauri::Manager;
-
 fn main() {
     let context = tauri::generate_context!();
     tauri::Builder::default()
@@ -20,8 +19,6 @@ fn main() {
         .on_system_tray_event(system_tray_menu_event)
         //为js提供调用方法
         .invoke_handler(tauri::generate_handler![c_create_window, close_splashscreen])
-        //初始化db
-        .plugin(tauri_plugin_sqlite::init())
         .run(context)
         .expect("创建程序出错");
 }
