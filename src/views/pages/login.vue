@@ -111,7 +111,6 @@ export default {
             this.getCaptcha()
             return this.$message.error(res.msg)
           }
-          Cookies.set('access_token', res.data.access_token)
           this.$router.replace({ name: 'home' })
         }).catch(() => {})
       })

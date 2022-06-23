@@ -17,9 +17,6 @@ import renRegionTree from '@/components/ren-region-tree'
 import { hasPermission, getDictLabel } from '@/utils'
 import cloneDeep from 'lodash/cloneDeep'
 
-
-
-
 import Tinymce from '@/components/tinymce/index.vue'
 Vue.component('tinymce', Tinymce)
 

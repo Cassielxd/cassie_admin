@@ -1,0 +1,16 @@
+pub struct SysUserDTO {
+    id: Option<i64>,
+    username: Option<String>,
+    password: Option<String>,
+    real_name: Option<String>,
+    head_url: Option<String>,
+    gender: Option<u8>,
+    email: Option<String>,
+    mobile: Option<String>,
+    role_id: Option<i64>,
+    super_admin: Option<i32>,
+    agency_code: Option<String>,
+    remark: Option<String>,
+    status: Option<i32>,
+    del_flag: Option<i32>,
+}
