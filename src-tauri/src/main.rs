@@ -13,7 +13,7 @@ fn main() {
         .menu(init_menu())
         .system_tray(init_system_tray())
         //系统设置
-        .setup(|app| Ok(()))
+        .setup(|_app| Ok(()))
         .on_window_event(windows_event)
         //菜单点击事件
         .on_menu_event(menu_event)
