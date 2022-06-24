@@ -3,13 +3,11 @@ use app::{
     meuns::menu::{init_menu, init_system_tray, menu_event, system_tray_menu_event, windows_event},
     init_context,
 };
-use tauri_plugin_store::PluginBuilder;
 use tauri::Manager;
 fn main() {
     init_context();
     let context = tauri::generate_context!();
     tauri::Builder::default()
-        .plugin(PluginBuilder::default().build())
         .plugin(tauri_plugin_sqlite::init())
         .menu(init_menu())
         .system_tray(init_system_tray())
