@@ -4,6 +4,9 @@ import router from '@/router'
 import qs from 'qs'
 import { clearLoginInfo } from '@/utils'
 import isPlainObject from 'lodash/isPlainObject'
+import SQLite from 'tauri-plugin-sqlite-api'
+
+
 const http = axios.create({
   baseURL: window.SITE_CONFIG['apiURL'],
   timeout: 1000 * 180

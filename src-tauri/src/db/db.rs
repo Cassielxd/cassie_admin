@@ -8,5 +8,5 @@ pub fn init_db(){
     "CREATE TABLE token (access_token            TEXT NOT NULL)",
     [],
 ).unwrap();
-  
+ let _a =conn.cache_flush();
 }
