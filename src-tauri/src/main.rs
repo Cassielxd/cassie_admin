@@ -2,17 +2,20 @@
 use app::{
     __cmd__c_create_window,
     meuns::menu::{init_menu, init_system_tray, menu_event, system_tray_menu_event, windows_event},
-    utils::c_create_window,
+    utils::c_create_window, init_context,
 };
 use tauri::Manager;
 fn main() {
+    init_context();
     let context = tauri::generate_context!();
     tauri::Builder::default()
         //初始化菜单
         .menu(init_menu())
         .system_tray(init_system_tray())
         //系统设置
-        .setup(|_app| Ok(()))
+        .setup(|app|{
+           Ok(())
+        })
         .on_window_event(windows_event)
         //菜单点击事件
         .on_menu_event(menu_event)
