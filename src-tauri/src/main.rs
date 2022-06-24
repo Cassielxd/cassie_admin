@@ -1,19 +1,20 @@
 #![cfg_attr(all(not(debug_assertions), target_os = "windows"), windows_subsystem = "windows")]
 use app::{
-    __cmd__c_create_window,
     meuns::menu::{init_menu, init_system_tray, menu_event, system_tray_menu_event, windows_event},
-    utils::c_create_window, init_context,
+    init_context,
 };
+use tauri_plugin_store::PluginBuilder;
 use tauri::Manager;
 fn main() {
     init_context();
     let context = tauri::generate_context!();
     tauri::Builder::default()
-        //初始化菜单
+        .plugin(PluginBuilder::default().build())
+        .plugin(tauri_plugin_sqlite::init())
         .menu(init_menu())
         .system_tray(init_system_tray())
         //系统设置
-        .setup(|app|{
+        .setup(|_app|{
            Ok(())
         })
         .on_window_event(windows_event)
@@ -21,7 +22,7 @@ fn main() {
         .on_menu_event(menu_event)
         .on_system_tray_event(system_tray_menu_event)
         //为js提供调用方法
-        .invoke_handler(tauri::generate_handler![c_create_window, close_splashscreen])
+        .invoke_handler(tauri::generate_handler![close_splashscreen])
         .run(context)
         .expect("创建程序出错");
 }

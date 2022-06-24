@@ -16,8 +16,15 @@ tauri-build = { version = "1.0.0", features = [] }
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 tauri = { version = "1.0.0", features = ["api-all", "system-tray"] }
-rusqlite = { version = "0.27.0", features = ["bundled","modern_sqlite"] }
 state = { version = "0.5", features = ["tls"] }
+
+[dependencies.tauri-plugin-store]
+git = "https://github.com/tauri-apps/tauri-plugin-store"
+tag = "v0.1.0"
+
+[dependencies.tauri-plugin-sqlite]
+git = "https://github.com/lzdyes/tauri-plugin-sqlite"
+tag = "v0.1.0"
 [features]
 # by default Tauri runs in production mode
 # when `tauri dev` runs it is executed with `cargo run --no-default-features` if `devPath` is an URL

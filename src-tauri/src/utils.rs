@@ -12,10 +12,7 @@ pub fn create_window(app: tauri::AppHandle, lable: &str, title: &str, router: &s
     }
 }
 
-#[tauri::command]
-pub fn c_create_window(lable: &str, title: &str, router: &str, app: tauri::AppHandle) {
-    create_window(app, lable, title, router, Menu::default());
-}
+
 
 //url 打开浏览器
 pub fn open_for_browser(window: &Window, path: &str) {
