@@ -1,24 +1,31 @@
+use crate::config::ApplicationConfig;
 use crate::utils::{create_window, open_for_browser};
+use crate::APPLICATION_CONTEXT;
 use tauri::api::dialog::confirm;
 use tauri::{AppHandle, CustomMenuItem, GlobalWindowEvent, Manager, Menu, Submenu, SystemTray, SystemTrayEvent, WindowMenuEvent};
 use tauri::{SystemTrayMenu, SystemTrayMenuItem};
 
-const  QUIT: &str ="quit";
-const  HIDE: &str ="hide";
+const QUIT: &str = "quit";
+const HIDE: &str = "hide";
 
-const  JS_PLAY_GROUND: &str ="js_play_ground";
-const  SOCURE_CODE: &str ="socure_code";
+const JS_PLAY_GROUND: &str = "js_play_ground";
+const SOCURE_CODE: &str = "socure_code";
 /*
 初始化菜单
 */
 pub fn init_menu() -> Menu {
-    let submenu = Submenu::new(
-        "工具",
-        Menu::new()
-            .add_item(CustomMenuItem::new(JS_PLAY_GROUND.to_string(), "Js沙箱环境"))
-            .add_item(CustomMenuItem::new(SOCURE_CODE.to_string(), "源码链接")),
-    );
-    Menu::new().add_submenu(submenu)
+    let config = APPLICATION_CONTEXT.get::<ApplicationConfig>();
+    if *config.debug() {
+        let submenu = Submenu::new(
+            "工具",
+            Menu::new()
+                .add_item(CustomMenuItem::new(JS_PLAY_GROUND.to_string(), "Js沙箱环境"))
+                .add_item(CustomMenuItem::new(SOCURE_CODE.to_string(), "源码链接")),
+        );
+        Menu::new().add_submenu(submenu)
+    } else {
+        Menu::default()
+    }
 }
 
 //菜单点击事件处理逻辑
@@ -76,13 +83,13 @@ pub fn windows_event(event: GlobalWindowEvent) {
                 }
             });
         }
-        tauri::WindowEvent::Resized(_) => {},
-        tauri::WindowEvent::Moved(_) => {},
-        tauri::WindowEvent::Destroyed => {},
-        tauri::WindowEvent::Focused(_) => {},
-        tauri::WindowEvent::ScaleFactorChanged { .. } => {},
-        tauri::WindowEvent::FileDrop(_) => {},
-        tauri::WindowEvent::ThemeChanged(_) => {},
+        tauri::WindowEvent::Resized(_) => {}
+        tauri::WindowEvent::Moved(_) => {}
+        tauri::WindowEvent::Destroyed => {}
+        tauri::WindowEvent::Focused(_) => {}
+        tauri::WindowEvent::ScaleFactorChanged { .. } => {}
+        tauri::WindowEvent::FileDrop(_) => {}
+        tauri::WindowEvent::ThemeChanged(_) => {}
         _ => {}
     }
 }

@@ -1,3 +1,1 @@
-pub fn init_db(){
- 
-}
+pub fn init_db() {}

@@ -12,8 +12,6 @@ pub fn create_window(app: tauri::AppHandle, lable: &str, title: &str, router: &s
     }
 }
 
-
-
 //url 打开浏览器
 pub fn open_for_browser(window: &Window, path: &str) {
     api::shell::open(&window.shell_scope(), path.to_string(), None).unwrap();
