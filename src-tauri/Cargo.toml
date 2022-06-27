@@ -22,6 +22,9 @@ pharos = "0.5.3"
 async-std = "1.10"
 getset = "0.1.2"
 serde_yaml = "0.8"
+tokio = { version = "1" ,features = ["full"] }
+axum = {version="0.5.9",features = ["multipart"] }
+tower-http = { version = "0.2.0",features= ["cors"] }
 
 [dependencies.tauri-plugin-sqlite]
 git = "https://github.com/lzdyes/tauri-plugin-sqlite"

@@ -10,6 +10,7 @@ pub mod db;
 pub mod event;
 pub mod initalize;
 pub mod meuns;
+pub mod server;
 pub mod utils;
 pub mod vo;
 
