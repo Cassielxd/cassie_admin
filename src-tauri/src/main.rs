@@ -2,9 +2,9 @@
 use app::{
     init_context,
     meuns::menu::{init_menu, init_system_tray, menu_event, system_tray_menu_event, windows_event},
-    server::init_server,
+    server::init_server, APPLICATION_CONTEXT,
 };
-use tauri::Manager;
+use tauri::{Manager, Window};
 #[tokio::main]
 async fn main() {
     init_context().await;
@@ -15,6 +15,8 @@ async fn main() {
         .system_tray(init_system_tray())
         //系统设置
         .setup(|_app| {
+           let main_window = _app.get_window("main").unwrap();
+            APPLICATION_CONTEXT.set::<Window>(main_window);
             init_server();
             Ok(())
         })
