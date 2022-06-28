@@ -24,15 +24,12 @@ getset = "0.1.2"
 serde_yaml = "0.8"
 tokio = { version = "1" ,features = ["full"] }
 axum = {version="0.5.9",features = ["multipart"] }
-tower-http = { version = "0.2.0",features= ["cors"] }
+tower-http = { version = "0.3.4",features= ["cors"] }
 
-[dependencies.tauri-plugin-sqlite]
-git = "https://github.com/lzdyes/tauri-plugin-sqlite"
-tag = "v0.1.0"
+
+
 [features]
-# by default Tauri runs in production mode
-# when `tauri dev` runs it is executed with `cargo run --no-default-features` if `devPath` is an URL
+
+bundled = []
 default = [ "custom-protocol" ]
-# this feature is used used for production builds where `devPath` points to the filesystem
-# DO NOT remove this
 custom-protocol = [ "tauri/custom-protocol" ]

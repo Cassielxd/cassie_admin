@@ -8,9 +8,7 @@ use tauri::{Manager, Window};
 #[tokio::main]
 async fn main() {
     init_context().await;
-    let context = tauri::generate_context!();
     tauri::Builder::default()
-        .plugin(tauri_plugin_sqlite::init())
         .menu(init_menu())
         .system_tray(init_system_tray())
         //系统设置
@@ -26,7 +24,7 @@ async fn main() {
         .on_system_tray_event(system_tray_menu_event)
         //为js提供调用方法
         .invoke_handler(tauri::generate_handler![close_splashscreen])
-        .run(context)
+        .run(tauri::generate_context!())
         .expect("创建程序出错");
 }
 

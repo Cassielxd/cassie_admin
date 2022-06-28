@@ -44,7 +44,7 @@
         "signingIdentity": null
       },
       "resources": [],
-      "shortDescription": "rust axum 桌面演示版",
+      "shortDescription": "rust axum 桌面版",
       "targets": "all",
       "windows": {
         "certificateThumbprint": null,
