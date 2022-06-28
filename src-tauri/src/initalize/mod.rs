@@ -1,5 +1,3 @@
-
-
 use crate::{config::ApplicationConfig, APPLICATION_CONTEXT};
 
 pub async fn init_config() {

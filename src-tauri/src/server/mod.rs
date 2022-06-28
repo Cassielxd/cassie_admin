@@ -1,4 +1,4 @@
-use axum::{Router, Server, response::IntoResponse, routing::get};
+use axum::{response::IntoResponse, routing::get, Router, Server};
 
 use crate::{config::ApplicationConfig, APPLICATION_CONTEXT};
 use std::time::Duration;
@@ -15,9 +15,7 @@ pub fn init_server() {
         let cassie_config = APPLICATION_CONTEXT.get::<ApplicationConfig>();
         let server = format!("{}:{}", cassie_config.server().host(), cassie_config.server().port());
         let cors = CorsLayer::new().allow_methods(Any).allow_origin(Any).allow_headers(Any).max_age(Duration::from_secs(60) * 10);
-        let app = Router::new()
-        .route("/", get(index))
-        .layer(cors);
+        let app = Router::new().route("/", get(index)).layer(cors);
         Server::bind(&server.parse().unwrap()).serve(app.into_make_service()).await.unwrap();
     });
 }

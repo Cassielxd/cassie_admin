@@ -15,6 +15,7 @@ const SOCURE_CODE: &str = "socure_code";
 */
 pub fn init_menu() -> Menu {
     let config = APPLICATION_CONTEXT.get::<ApplicationConfig>();
+    //debug 环境开启开发工具
     if *config.debug() {
         let submenu = Submenu::new(
             "工具",
@@ -32,6 +33,7 @@ pub fn init_menu() -> Menu {
 pub fn menu_event(event: WindowMenuEvent) {
     match event.menu_item_id() {
         JS_PLAY_GROUND => {
+            //开启jsPlayGround 窗口
             create_window(event.window().app_handle(), JS_PLAY_GROUND, "PlayGround", "/#/jsruntime", Menu::default());
         }
         SOCURE_CODE => {
@@ -73,6 +75,7 @@ pub fn system_tray_menu_event(app: &AppHandle, event: SystemTrayEvent) {
 //系统事件处理
 pub fn windows_event(event: GlobalWindowEvent) {
     match event.event() {
+        //窗口关闭事件
         tauri::WindowEvent::CloseRequested { api, .. } => {
             //阻止窗口默认关闭动作
             api.prevent_close();
@@ -83,13 +86,6 @@ pub fn windows_event(event: GlobalWindowEvent) {
                 }
             });
         }
-        tauri::WindowEvent::Resized(_) => {}
-        tauri::WindowEvent::Moved(_) => {}
-        tauri::WindowEvent::Destroyed => {}
-        tauri::WindowEvent::Focused(_) => {}
-        tauri::WindowEvent::ScaleFactorChanged { .. } => {}
-        tauri::WindowEvent::FileDrop(_) => {}
-        tauri::WindowEvent::ThemeChanged(_) => {}
         _ => {}
     }
 }
