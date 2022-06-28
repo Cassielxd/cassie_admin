@@ -5,11 +5,11 @@ use app::{
     server::init_server,
     APPLICATION_CONTEXT,
 };
-use tauri::{Manager, Window};
+use tauri::{Manager, Window,Builder};
 #[tokio::main]
 async fn main() {
     init_context().await;
-    tauri::Builder::default()
+    Builder::default()
         .menu(init_menu())
         .system_tray(init_system_tray())
         //系统设置
