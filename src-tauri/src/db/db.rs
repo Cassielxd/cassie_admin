@@ -36,7 +36,7 @@ pub struct SqliteMap{
     pub conn_map:Mutex<HashMap<String, Connection>>
 }
 
-
+//创建一个新的 db
 #[command]
 async fn open( path: String) -> Result<bool> {
   let connection = Connection::open(&path).unwrap();
@@ -45,7 +45,7 @@ async fn open( path: String) -> Result<bool> {
   Ok(true)
 }
 
-
+//关闭连接
 #[command]
 async fn close(path: String) -> Result<bool> {
     let map =APPLICATION_CONTEXT.get::<SqliteMap>();
@@ -56,7 +56,7 @@ async fn close(path: String) -> Result<bool> {
   Ok(true)
 }
 
-
+//执行path 下的 sql
 #[command]
 async fn execute(path: String, sql: String) -> Result<bool> {
     let map =APPLICATION_CONTEXT.get::<SqliteMap>();
@@ -66,6 +66,7 @@ async fn execute(path: String, sql: String) -> Result<bool> {
   Ok(true)
 }
 
+//保存默认path下的值
 #[command]
 async fn save(key:String,value: String) -> Result<bool> {
     let map =APPLICATION_CONTEXT.get::<SqliteMap>();
@@ -75,6 +76,7 @@ async fn save(key:String,value: String) -> Result<bool> {
   Ok(true)
 }
 
+//删除默认path下的值
 #[command]
 async fn del(key:String) -> Result<bool> {
   let map =APPLICATION_CONTEXT.get::<SqliteMap>();
@@ -84,6 +86,7 @@ async fn del(key:String) -> Result<bool> {
   stmt.execute([key])?;
   Ok(true)
 }
+//获取默认path下的 value值
 #[command]
 async fn get(key:String,) -> Result<Vec<String>> {
     let map =APPLICATION_CONTEXT.get::<SqliteMap>();
@@ -101,7 +104,7 @@ async fn get(key:String,) -> Result<Vec<String>> {
   Ok(values)
 }
 
-
+//初始化sqlite   Plugin  名称是  sqlite
 pub fn init_sqlite<R: Runtime>() -> TauriPlugin<R> {
     Builder::new("sqlite")
       .invoke_handler(tauri::generate_handler![save,open, close, execute,get,del])
