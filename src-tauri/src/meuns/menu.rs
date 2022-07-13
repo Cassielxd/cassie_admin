@@ -82,6 +82,7 @@ pub fn windows_event(event: GlobalWindowEvent) {
             let window = event.window().clone();
             confirm(Some(&event.window()), "关闭窗口", "确定要关闭当前窗口?", move |e| {
                 if e {
+                    //关闭之前需要做一些资源的销毁操作 todo
                     let _r = window.close();
                 }
             });

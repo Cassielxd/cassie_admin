@@ -3,7 +3,7 @@ use app::{
     init_context,
     meuns::menu::{init_menu, init_system_tray, menu_event, system_tray_menu_event, windows_event},
     server::init_server,
-    APPLICATION_CONTEXT, db::db::init_sqlite,
+    APPLICATION_CONTEXT, db::db::init_sqlite, config::ApplicationConfig,
 };
 use tauri::{Manager, Window,Builder,generate_handler,generate_context};
 
@@ -16,9 +16,14 @@ async fn main() {
         .system_tray(init_system_tray())
         //系统设置
         .setup(|_app| {
+           let config = APPLICATION_CONTEXT.get::<ApplicationConfig>();
             let main_window = _app.get_window("main").unwrap();
+            if *config.debug(){
+                main_window.open_devtools();
+            }
             APPLICATION_CONTEXT.set::<Window>(main_window);
-            init_server();
+            init_server();//初始化一个本地server
+            
             Ok(())
         })
         //系统事件
