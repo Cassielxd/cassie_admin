@@ -91,12 +91,13 @@ export default {
       }
     }
   },
-  created () {
-    this.getCaptcha()
+  async created () {
+    this.getCaptcha();
+    await invoke('plugin:sqlite|del',{key:"access_token"});
   },
   methods: {
      set_token(token){
-      debugger
+      
      return  invoke('plugin:sqlite|save',{key:"access_token",value:token});
     },
     // 获取验证码

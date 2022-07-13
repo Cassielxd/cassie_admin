@@ -74,6 +74,16 @@ async fn save(key:String,value: String) -> Result<bool> {
   connection.execute("INSERT INTO storage (key, value) VALUES (?1, ?2)", params![key, value],)?;
   Ok(true)
 }
+
+#[command]
+async fn del(key:String) -> Result<bool> {
+  let map =APPLICATION_CONTEXT.get::<SqliteMap>();
+  let mut map = map.conn_map.lock().unwrap();
+  let connection = map.get_mut(&"cassie".to_string()).ok_or(Error::DatabaseNotOpened("cassie".to_string()))?;
+  let mut stmt = connection.prepare(" DELETE FROM  storage where key = :key")?;
+  stmt.execute([key])?;
+  Ok(true)
+}
 #[command]
 async fn get(key:String,) -> Result<Vec<String>> {
     let map =APPLICATION_CONTEXT.get::<SqliteMap>();
@@ -94,7 +104,7 @@ async fn get(key:String,) -> Result<Vec<String>> {
 
 pub fn init_sqlite<R: Runtime>() -> TauriPlugin<R> {
     Builder::new("sqlite")
-      .invoke_handler(tauri::generate_handler![save,open, close, execute,get])
+      .invoke_handler(tauri::generate_handler![save,open, close, execute,get,del])
       .setup(|app| {
         app.manage(SqliteMap::default());
         Ok(())
