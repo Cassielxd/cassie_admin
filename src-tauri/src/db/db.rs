@@ -1,11 +1,10 @@
 use std::{collections::HashMap, sync::Mutex};
 use serde::{ser::Serializer, Serialize};
-use serde_json::{json, Value as JsonValue};
-use rusqlite::{Connection, Params, params, named_params};
+use rusqlite::{Connection, params, named_params};
 use tauri::{
     command,
     plugin::{Builder, TauriPlugin},
-    Manager, Runtime, State,
+    Manager, Runtime,
   };
 
 use crate::APPLICATION_CONTEXT;
