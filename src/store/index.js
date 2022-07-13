@@ -11,7 +11,7 @@ export default new Vuex.Store({
     // 导航条, 布局风格, defalut(白色) / colorful(鲜艳)
     navbarLayoutType: 'colorful',
     // 侧边栏, 布局皮肤, default(白色) / dark(黑色)
-    sidebarLayoutSkin: 'dark',
+    sidebarLayoutSkin: 'default',
     // 侧边栏, 折叠状态
     sidebarFold: false,
     // 侧边栏, 菜单
