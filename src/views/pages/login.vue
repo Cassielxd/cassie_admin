@@ -58,6 +58,7 @@
 </template>
 
 <script>
+import { invoke } from '@tauri-apps/api'
 import Cookies from 'js-cookie'
 import debounce from 'lodash/debounce'
 import { messages } from '@/i18n'
@@ -94,13 +95,19 @@ export default {
     this.getCaptcha()
   },
   methods: {
+     set_token(token){
+      debugger
+     return  invoke('plugin:sqlite|save',{key:"access_token",value:token});
+    },
     // 获取验证码
     getCaptcha () {
       this.dataForm.uuid = getUUID()
       this.captchaPath = `${window.SITE_CONFIG['apiURL']}/captcha/${this.dataForm.uuid}`
+
     },
+     
     // 表单提交
-    dataFormSubmitHandle: debounce(function () {
+     dataFormSubmitHandle: debounce(  function () {
       this.$refs['dataForm'].validate((valid) => {
         if (!valid) {
           return false
@@ -112,6 +119,7 @@ export default {
             return this.$message.error(res.msg)
           }
           Cookies.set('access_token', res.data.access_token)
+          this.set_token(res.data.access_token);
           this.$router.replace({ name: 'home' })
         }).catch(() => {})
       })

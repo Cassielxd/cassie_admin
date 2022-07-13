@@ -1,8 +1,8 @@
 #[macro_use]
 extern crate getset;
-use db::db::init_db;
+
 use event::init_event_bus;
-use initalize::init_config;
+use initalize::{init_config, init_db};
 use state::Container;
 
 pub mod config;

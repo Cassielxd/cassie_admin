@@ -3,7 +3,7 @@ use app::{
     init_context,
     meuns::menu::{init_menu, init_system_tray, menu_event, system_tray_menu_event, windows_event},
     server::init_server,
-    APPLICATION_CONTEXT,
+    APPLICATION_CONTEXT, db::db::init_sqlite,
 };
 use tauri::{Manager, Window,Builder,generate_handler,generate_context};
 
@@ -11,6 +11,7 @@ use tauri::{Manager, Window,Builder,generate_handler,generate_context};
 async fn main() {
     init_context().await;
     Builder::default()
+        .plugin(init_sqlite())
         .menu(init_menu())
         .system_tray(init_system_tray())
         //系统设置
