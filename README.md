@@ -27,8 +27,10 @@ Tauri 4.32mb
 
 1. 启动后端项目 cassie axum
 2. npm run install 下载前端依赖文件
-#### 安装rust开发环境
 3. 进入 src-tauri 执行命令 cargo build
+4. cargo install tauri-cli --version "^1.0.0"
+5. 开发: 执行 cargo tauri dev
+6. 打包：执行 cargo tauri build
 
 
 #### 框架说明
