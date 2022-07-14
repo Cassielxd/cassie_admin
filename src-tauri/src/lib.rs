@@ -1,21 +1,21 @@
 #[macro_use]
 extern crate getset;
 
+use event::init_event_bus;
 use fast_log::config::Config;
 use fast_log::consts::LogSize;
 use fast_log::plugin::file_split::RollingType;
 use fast_log::plugin::packer::ZipPacker;
-use log::{Level, LevelFilter};
-use std::time::Duration;
-use event::init_event_bus;
 use initalize::{init_config, init_db};
+use log::{Level, LevelFilter};
 use state::Container;
+use std::time::Duration;
 
 pub mod config;
-pub mod db;
 pub mod event;
 pub mod initalize;
 pub mod meuns;
+pub mod plugin;
 pub mod server;
 pub mod utils;
 pub mod vo;
@@ -36,17 +36,11 @@ pub fn init_log() {
     fast_log::init(
         Config::new()
             .console()
-            .file_split(
-                "logs/",
-                str_to_temp_size("100MB"),
-                str_to_rolling("KeepNum(20)"),
-                ZipPacker {},
-            )
+            .file_split("logs/", str_to_temp_size("100MB"), str_to_rolling("KeepNum(20)"), ZipPacker {})
             .level(LevelFilter::Info),
     )
     .unwrap();
 }
-
 
 fn str_to_temp_size(arg: &str) -> LogSize {
     match arg {

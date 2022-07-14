@@ -1,8 +1,8 @@
 use axum::{response::IntoResponse, routing::get, Router, Server};
 
 use crate::{config::ApplicationConfig, APPLICATION_CONTEXT};
-use std::time::Duration;
 use log::info;
+use std::time::Duration;
 use tower_http::cors::{Any, CorsLayer};
 
 //server 测试
@@ -18,7 +18,7 @@ pub fn init_server() {
         let server = format!("{}:{}", cassie_config.server().host(), cassie_config.server().port());
         let cors = CorsLayer::new().allow_methods(Any).allow_origin(Any).allow_headers(Any).max_age(Duration::from_secs(60) * 10);
         let app = Router::new().route("/", get(index)).layer(cors);
-        info!("local://{}",server);
+        info!("local://{}", server);
         Server::bind(&server.parse().unwrap()).serve(app.into_make_service()).await.unwrap();
     });
 }
