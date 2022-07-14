@@ -23,7 +23,7 @@ async-std = "1.10"
 getset = "0.1.2"
 serde_yaml = "0.8"
 tokio = { version = "1" ,features = ["full"] }
-axum = {version="0.5.9",features = ["multipart"] }
+axum = {version="0.5.9"}
 tower-http = { version = "0.3.4",features= ["cors"] }
 rusqlite = { version = "0.27.0", features = ["bundled"] }
 thiserror = "1.0"
