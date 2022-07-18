@@ -38,7 +38,10 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
-        window.__TAURI__.invoke('close_splashscreen')
+        if(window.__TAURI__){
+          window.__TAURI__.invoke('close_splashscreen')
+        }
+        
       }, 5000)
     })
   </script>

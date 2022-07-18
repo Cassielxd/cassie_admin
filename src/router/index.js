@@ -138,7 +138,7 @@ function fnAddDynamicMenuRoutes (menuList = [], routes = []) {
       name: '',
       meta: {
         ...window.SITE_CONFIG['contentTabDefault'],
-        menuId: menuList[i].id,
+        menuId: menuList[i].id+'',
         title: menuList[i].name
       }
     }

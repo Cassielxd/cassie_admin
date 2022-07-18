@@ -22,7 +22,7 @@ http.interceptors.request.use(async config => {
   config.headers['Accept-Language'] = Cookies.get('language') || 'zh-CN'
   if (config.url !== '/login') {
     let t = Cookies.get('access_token') || '';
-    if(t==''){
+    if(t==''&& window.__TAURI__){
       let data =await get_token();
       t =data[0];
       Cookies.set('access_token', data[0]);

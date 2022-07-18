@@ -7,7 +7,7 @@
         :unique-opened="true"
         :collapseTransition="false"
         class="aui-sidebar__menu">
-        <sub-menu v-for="menu in $store.state.sidebarMenuList" :key="menu.id.toString()" :menu="menu" />
+        <sub-menu v-for="menu in $store.state.sidebarMenuList" :key="menu.id+''" :menu="menu" />
       </el-menu>
     </div>
   </aside>

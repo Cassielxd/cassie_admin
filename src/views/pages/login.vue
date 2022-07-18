@@ -92,8 +92,13 @@ export default {
     }
   },
   async created () {
+
     this.getCaptcha();
-    await invoke('plugin:sqlite|del',{key:"access_token"});
+    if(window.__TAURI__){
+      await invoke('plugin:sqlite|del',{key:"access_token"});
+    }
+    
+   
   },
   methods: {
      set_token(token){
@@ -120,7 +125,10 @@ export default {
             return this.$message.error(res.msg)
           }
           Cookies.set('access_token', res.data.access_token)
-          this.set_token(res.data.access_token);
+          if(window.__TAURI__){
+            this.set_token(res.data.access_token);
+          }
+          
           this.$router.replace({ name: 'home' })
         }).catch(() => {})
       })
