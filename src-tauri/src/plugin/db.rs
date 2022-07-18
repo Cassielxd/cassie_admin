@@ -3,8 +3,7 @@ use serde::{ser::Serializer, Serialize};
 use std::{collections::HashMap, sync::Mutex};
 use tauri::{
     command,
-    plugin::{Builder, TauriPlugin},
-    GlobalShortcutManager, Manager, Runtime,
+    plugin::{Builder, TauriPlugin}, Runtime,
 };
 
 use crate::APPLICATION_CONTEXT;

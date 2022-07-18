@@ -20,12 +20,8 @@ async fn main() {
         .setup(|_app| {
             let config = APPLICATION_CONTEXT.get::<ApplicationConfig>();
             let main_window = _app.get_window("main").unwrap();
-            if *config.debug() {
-                main_window.open_devtools();
-            }
             APPLICATION_CONTEXT.set::<Window>(main_window);
             init_server(); //初始化一个本地server
-
             Ok(())
         })
         //系统事件
