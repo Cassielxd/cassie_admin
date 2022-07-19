@@ -37,7 +37,7 @@
                   </el-input>
                 </el-col>
                 <el-col :span="10" class="login-captcha">
-                  <img :src="captchaPath" @click="getCaptcha()">
+                  <img :src="'data:image/jpeg;base64,'+captchaPath" @click="getCaptcha()">
                 </el-col>
               </el-row>
             </el-form-item>
@@ -93,7 +93,7 @@ export default {
   },
   async created () {
 
-    this.getCaptcha();
+   await this.getCaptcha();
     if(window.__TAURI__){
       await invoke('plugin:sqlite|del',{key:"access_token"});
     }
@@ -106,10 +106,10 @@ export default {
      return  invoke('plugin:sqlite|save',{key:"access_token",value:token});
     },
     // 获取验证码
-    getCaptcha () {
+    async getCaptcha () {
       this.dataForm.uuid = getUUID()
-      this.captchaPath = `${window.SITE_CONFIG['apiURL']}/captcha/${this.dataForm.uuid}`
-
+      let e =await this.$http.get(`/captcha/${this.dataForm.uuid}`);
+      this.captchaPath=e.data.data;
     },
      
     // 表单提交

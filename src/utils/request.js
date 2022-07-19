@@ -5,8 +5,11 @@ import qs from 'qs'
 import { clearLoginInfo } from '@/utils'
 import isPlainObject from 'lodash/isPlainObject'
 import { invoke } from '@tauri-apps/api'
+import axiosTauriAdapter from 'axios-tauri-adapter';
+
 const http = axios.create({
   baseURL: window.SITE_CONFIG['apiURL'],
+  adapter: axiosTauriAdapter,
   timeout: 1000 * 180
 })
 
