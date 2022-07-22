@@ -134,7 +134,7 @@ img {
   display: inline-block;
   margin: 0 3px;
   vertical-align: middle;
-  font-size: 18px;
+  font-size: 16px;
   color: $--color-text-secondary;
 }
 // 按钮
@@ -148,15 +148,15 @@ img {
     > span > *[class*="el-icon-"],
     > span > *[class*="icon"] {
       vertical-align: middle;
-      font-size: 18px;
-      margin-right: 5px;
+      font-size: 16px;
+      margin-right: 4px;
     }
   }
 }
 // 主题工具
 .aui-theme-tools {
   position: fixed;
-  top: $navbar--height + $content--tabs-header-height + 15px;
+  top: $navbar--height + $content--tabs-header-height + 10px;
   right: -210px;
   bottom: 0;
   z-index: 1010;
@@ -326,7 +326,7 @@ img {
     margin: 0;
     width: 100%;
     height: 100%;
-    font-size: 20px;
+    font-size: 18px;
     text-transform: uppercase;
     white-space: nowrap;
     color: #fff;
@@ -400,7 +400,7 @@ img {
         color: $--color-text-secondary;
         .el-icon-arrow-down {
           width: auto;
-          font-size: 12px;
+          font-size: 10px;
           margin: 0 0 0 5px;
           transition: transform .3s;
         }
