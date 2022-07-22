@@ -33,7 +33,7 @@
   <% } %>
   <!-- 生产环境 -->
   <% if (process.env.VUE_APP_NODE_ENV === 'prod') { %>
-    <script>window.SITE_CONFIG['apiURL'] = 'http://localhost:9999/admin';</script>
+    <script>window.SITE_CONFIG['apiURL'] = 'http://washcar.cymcar.com/admin';</script>
   <% } %>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -47,6 +47,6 @@
   </script>
 </head>
 <body>
-  <div id="app" style="border-radius: 25%/50%;"></div>
+  <div id="app"></div>
 </body>
 </html>

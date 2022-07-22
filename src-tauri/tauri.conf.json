@@ -65,7 +65,9 @@
       }
     },
     "security": {
-      "csp": null
+      "csp": {
+        "img-src": "'self' http blob: data:"
+      }
     },
     "updater": {
       "active": false

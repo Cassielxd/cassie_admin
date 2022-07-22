@@ -10,13 +10,13 @@ edition = "2021"
 
 
 [build-dependencies]
-tauri-build = { version = "1.0.0-rc.1", features = [] }
+tauri-build = { version = "1.0.4", features = [] }
 
 [dependencies]
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
-tauri = { version = "1.0.0-rc.17", features = ["api-all", "system-tray"] }
-state = { version = "0.5", features = ["tls"] }
+tauri = { version = "1.0.4", features = ["api-all", "system-tray"] }
+state = { version = "0.5" }
 #pharosv事件框架
 pharos = "0.5.3"
 async-std = "1.10"

@@ -63,7 +63,7 @@
                   </el-input>
                 </el-col>
                 <el-col :span="10" class="login-captcha">
-                  <img :src="captchaPath" @click="getCaptcha()">
+                  <img :src="captchaPath" @click="getCaptcha_base64()">
                 </el-col>
               </el-row>
             </el-form-item>
@@ -121,7 +121,7 @@ export default {
   },
   async created() {
 
-    await this.getCaptcha();
+    await this.getCaptcha_base64();
     if (window.__TAURI__) {
       await invoke('plugin:sqlite|del', { key: "access_token" });
     }
