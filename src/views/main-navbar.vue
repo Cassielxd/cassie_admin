@@ -6,7 +6,7 @@
         <a class="aui-navbar__brand-mini" href="javascript:;">{{ $t('brand.mini') }}</a>
       </h1>
     </div>
-    <div class="aui-navbar__body">
+    <div data-tauri-drag-region class="aui-navbar__body">
       <el-menu class="aui-navbar__menu mr-auto" mode="horizontal">
         <el-menu-item index="1" @click="$store.state.sidebarFold = !$store.state.sidebarFold">
           <svg class="icon-svg aui-navbar__icon-menu aui-navbar__icon-menu--switch" aria-hidden="true"><use xlink:href="#icon-outdent"></use></svg>
@@ -16,10 +16,10 @@
         </el-menu-item>
       </el-menu>
       <el-menu class="aui-navbar__menu" mode="horizontal">
-      <el-menu-item index="1" class="aui-navbar__avatar">
+         <el-menu-item index="1" class="aui-navbar__avatar">
                 <el-dropdown placement="bottom" :show-timeout="0">
                   <span class="el-dropdown-link">
-                    <img src="~@/assets/img/avatar.png">
+                    <img src="http://washcar.cymcar.com/img/avatar.c58e4651.png">
                     <span>{{ $store.state.user.realName }}</span>
                     <i class="el-icon-arrow-down"></i>
                   </span>
@@ -28,7 +28,16 @@
                     <el-dropdown-item @click.native="logoutHandle()">{{ $t('logout') }}</el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
-              </el-menu-item>
+          </el-menu-item>
+          <el-menu-item index="2" @click="minScreenHandle()">
+          <svg class="icon-svg aui-navbar__icon-menu" aria-hidden="true"><use xlink:href="#icon-minus"></use></svg>
+        </el-menu-item>
+        <el-menu-item index="3" @click="fullscreenHandle()">
+          <svg class="icon-svg aui-navbar__icon-menu" aria-hidden="true"><use xlink:href="#icon-border"></use></svg>
+        </el-menu-item>
+        <el-menu-item index="4" @click="closeWindow()">
+          <svg class="icon-svg aui-navbar__icon-menu" aria-hidden="true"><use xlink:href="#icon-close"></use></svg>
+        </el-menu-item>
       </el-menu>
     </div>
     <!-- 弹窗, 修改密码 -->
@@ -60,13 +69,24 @@ export default {
     myNoticeRouter () {
       this.$router.replace('sys-notice-user')
     },
+    //关闭窗口
+    closeWindow () {
+      this.$confirm("您是否要退出当前程序", "关闭窗口", {
+        confirmButtonText: "关闭",
+        cancelButtonText: "取消",
+        type: 'warning'
+      }).then(() => {
+        appWindow.close();
+      })
+       
+    },
     //最小化
     minScreenHandle () {
        appWindow.minimize();
     },
     // 全屏
     fullscreenHandle () {
-    appWindow.toggleMaximize()
+        appWindow.toggleMaximize()
     },
     // 修改密码
     updatePasswordHandle () {

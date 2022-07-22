@@ -29,11 +29,11 @@
 
   <!-- 开发环境 -->
   <% if (process.env.VUE_APP_NODE_ENV === 'dev') { %>
-    <script>window.SITE_CONFIG['apiURL'] = 'http://washcar.cymcar.com/admin';</script>
+    <script>window.SITE_CONFIG['apiURL'] = 'http://localhost:9999/admin';</script>
   <% } %>
   <!-- 生产环境 -->
   <% if (process.env.VUE_APP_NODE_ENV === 'prod') { %>
-    <script>window.SITE_CONFIG['apiURL'] = '/admin';</script>
+    <script>window.SITE_CONFIG['apiURL'] = 'http://washcar.cymcar.com/admin';</script>
   <% } %>
   <script>
     document.addEventListener('DOMContentLoaded', () => {

@@ -19,7 +19,13 @@
     "allowlist": {
       "all": true,
       "http": {
-        "scope": ["http://washcar.cymcar.com/admin/*","http://localhost:9999/admin/*"]
+        "all": true,
+        "request": true,
+        "scope": ["https://**", "http://**"]
+      },
+      "fs": {
+        "all": true,
+        "scope": ["*"]
       }
     },
     "bundle": {
@@ -74,7 +80,8 @@
         "width": 1000,
         "minWidth": 800,
         "minHeight": 600,
-        "visible": false
+        "visible": false,
+        "decorations":false
       },
       {
         "center":true,

@@ -18,7 +18,6 @@ async fn main() {
         .system_tray(init_system_tray())
         //系统设置
         .setup(|_app| {
-            let config = APPLICATION_CONTEXT.get::<ApplicationConfig>();
             let main_window = _app.get_window("main").unwrap();
             APPLICATION_CONTEXT.set::<Window>(main_window);
             init_server(); //初始化一个本地server
