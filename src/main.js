@@ -17,6 +17,8 @@ import renRegionTree from '@/components/ren-region-tree'
 import { hasPermission, getDictLabel } from '@/utils'
 import cloneDeep from 'lodash/cloneDeep'
 import { invoke } from '@tauri-apps/api'
+import JwChat from 'jwchat';
+Vue.use(JwChat)
 
 import Tinymce from '@/components/tinymce/index.vue'
 Vue.component('tinymce', Tinymce)

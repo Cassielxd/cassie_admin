@@ -28,6 +28,7 @@
               <el-dropdown-item @click.native="openNew(1)">Js沙箱环境
               </el-dropdown-item>
               <el-dropdown-item @click.native="openNew(2)">源码链接</el-dropdown-item>
+              <el-dropdown-item @click.native="openNew(3)">IM</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </el-menu-item>
@@ -93,15 +94,31 @@ export default {
       this.$router.replace('sys-notice-user')
     },
     openNew(index) {
-      if (index == 1) {
-        new WebviewWindow('js_play_ground', {
-          title:"JsPlayGround",
-          url: '/#/jsruntime',
-          center: true,
-        });
-      } else {
-        window.open("https://gitee.com/stringlxd");
+      switch (index) {
+        case 1: {
+          new WebviewWindow('js_play_ground', {
+            title: "JsPlayGround",
+            url: '/#/jsruntime',
+            center: true,
+          });
+          break;
+        }
+        case 2: {
+          window.open("https://gitee.com/stringlxd");
+          break;
+        }
+        case 3: { 
+          new WebviewWindow('chat', {
+            resizable:false,
+            fullscreen:false,
+            title: "chat",
+            url: '/#/chat',
+            center: true,
+          });
+          break;
+        }
       }
+
     },
     //关闭窗口
     closeWindow() {
