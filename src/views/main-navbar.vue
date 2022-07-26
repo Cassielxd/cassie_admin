@@ -111,7 +111,7 @@ export default {
           new WebviewWindow('chat', {
             resizable:false,
             fullscreen:false,
-            title: "chat",
+            title: "cassie chat",
             url: '/#/chat',
             center: true,
           });
