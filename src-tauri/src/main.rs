@@ -7,14 +7,14 @@ use app::{
     server::init_server,
     APPLICATION_CONTEXT,
 };
-use tauri::{generate_context, generate_handler, Builder, Manager, Window};
+use tauri::{generate_context, generate_handler, Builder, Manager, Window, Menu};
 
 #[tokio::main]
 async fn main() {
     init_context().await;
     Builder::default()
         .plugin(init_sqlite())
-        .menu(init_menu())
+        .menu(Menu::default())
         .system_tray(init_system_tray())
         //系统设置
         .setup(|_app| {
@@ -29,6 +29,7 @@ async fn main() {
         .on_menu_event(menu_event)
         //托盘事件
         .on_system_tray_event(system_tray_menu_event)
+        
         //为js提供调用方法
         .invoke_handler(generate_handler![close_splashscreen])
         .run(generate_context!())

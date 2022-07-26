@@ -82,7 +82,14 @@ t.home = {}
 t.home.desc = {}
 t.home.desc.title = '项目介绍'
 t.home.desc.list = [
-  ''
+  'cassie axun 是基于rust axum 完成web端手脚架 基础权限,用户,缓存,验证,代码生成',
+  '1: 提供基础的 基础缓存定义,redis',
+  '2: orm框架选用Ribatis 数据库mysql',
+  '3: casbin-rs 权限管理框架提供基础的rbac实现',
+  '4: 异步事件模型event bus 集成',
+  '5: javascript 运行时denoRuntime 集成 ',
+  '6: 自定义javascript playground在线js沙箱环境',
+  '作者String 348040933@qq.com 交流群:435604279'
 ]
 
 /* 模块 */

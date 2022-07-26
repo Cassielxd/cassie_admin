@@ -22,10 +22,6 @@
         "all": true,
         "request": true,
         "scope": ["https://**", "http://**"]
-      },
-      "fs": {
-        "all": true,
-        "scope": ["*"]
       }
     },
     "bundle": {
@@ -65,9 +61,7 @@
       }
     },
     "security": {
-      "csp": {
-        "img-src": "'self' http blob: data:"
-      }
+      "csp": null
     },
     "updater": {
       "active": false
