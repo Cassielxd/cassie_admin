@@ -93,6 +93,7 @@ export default {
       console.log('t', e)
     },
     bindEnter() {
+      //群消息发送
       const msg = this.inputMsg
       if (!msg) return;
       const msgObj = {
@@ -103,6 +104,7 @@ export default {
         "img": "https://portrait.gitee.com/uploads/avatars/user/643/1930682_stringlxd_1643358838.png!avatar200"
       }
       this.taleList.push(msgObj);
+      //如果不是群消息 需要发给固定的某人 需要 填 from   to
       this.websocketSend(JSON.stringify({ 'mt': 'Msg', body: { text: msg, from: "", to: "" } }));
     },
     /**
@@ -156,11 +158,14 @@ export default {
     },
     websocketOnOpen(event) {
       var that = this;
+      //立即获取在线用户列表
       that.websocketSend(JSON.stringify({ 'mt': 'UserList' }));
       setInterval(function () {
+        //定时心跳防止连接断开
         that.websocketSend(JSON.stringify({ 'mt': 'Ping' }));
       }, 15000);
       setInterval(function () {
+        //定时获取在线列表 可能会有上线用户 下线用户
         that.websocketSend(JSON.stringify({ 'mt': 'UserList' }));
       }, 5000);
     },
@@ -172,7 +177,6 @@ export default {
     },
     websocketOnMessage(e) {
       const redata = JSON.parse(e.data);
-      console.log(redata);
       this.handleMsg(redata);
     },
     websocketSend(data) {
@@ -184,6 +188,7 @@ export default {
     handleMsg(redata) {
       switch (redata.mt) {
         case "Msg": {
+          //消息接收
           let mesg = {
             "date": "2020/04/16 21:19:07",
             "text": { "text": redata.body.text },
@@ -195,9 +200,12 @@ export default {
           break;
         }
         case "Ping": {
+          //心跳
+          console.log("心跳回执:",redata.body.text);
           break;
         }
         case "UserList": {
+          //获取在线用户
           const userData = JSON.parse(redata.body.text);
           this.getUserList(userData);
           break;
