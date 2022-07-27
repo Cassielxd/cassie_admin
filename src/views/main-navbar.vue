@@ -114,6 +114,9 @@ export default {
             title: "cassie chat",
             url: '/#/chat',
             center: true,
+            decorations:false,
+            width:800,
+            height:600
           });
           break;
         }
