@@ -124,7 +124,7 @@ export default {
     bindLoadHistory() {
       const history = new Array(3).fill().map((i, j) => {
         return {
-          "date": "2020/05/20 23:19:07",
+          "date": "现在",
           "text": { "text": j + new Date() },
           "mine": false,
           "name": "JwChat",
@@ -190,7 +190,7 @@ export default {
         case "Msg": {
           //消息接收
           let mesg = {
-            "date": "2020/04/16 21:19:07",
+            "date": redata.date||'',
             "text": { "text": redata.body.text },
             "mine": false,
             "name": redata.body.from,
