@@ -29,6 +29,7 @@
               </el-dropdown-item>
               <el-dropdown-item @click.native="openNew(2)">源码链接</el-dropdown-item>
               <el-dropdown-item @click.native="openNew(3)">IM</el-dropdown-item>
+              <el-dropdown-item @click.native="openNew(4)">百度</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </el-menu-item>
@@ -37,7 +38,7 @@
         <el-menu-item index="1" class="aui-navbar__avatar">
           <el-dropdown placement="bottom" :show-timeout="0">
             <span class="el-dropdown-link">
-              <img src="http://washcar.cymcar.com/img/avatar.c58e4651.png">
+              <img src="https://washcar.cymcar.com/img/avatar.c58e4651.png">
               <span>{{ $store.state.user.realName }}</span>
               <i class="el-icon-arrow-down"></i>
             </span>
@@ -117,6 +118,16 @@ export default {
             decorations:false,
             width:800,
             height:600
+          });
+          break;
+        }
+        case 4: {
+          new WebviewWindow('百度', {
+            title: "百度",
+            url: 'http://www.baidu.com',
+            center: true,
+            width:1500,
+            height:1000
           });
           break;
         }

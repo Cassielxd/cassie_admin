@@ -61,13 +61,14 @@
       }
     },
     "security": {
-      "csp": null
+      "csp": null,
+      "dangerousDisableAssetCspModification":true
     },
     "updater": {
       "active": false
     },
     "windows": [
-      {
+      { 
         "center":true,
         "fullscreen": false,
         "height": 800,

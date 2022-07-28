@@ -149,7 +149,7 @@ export default {
     //-----------------------------------------------------
     initWebSocket() {
       let token = Cookies.get('access_token') || '';
-      const wsuri = "ws://127.0.0.1:20003/?access_token=" + token;
+      const wsuri =`${window.SITE_CONFIG['wsURL']}?access_token=` + token;
       this.websock = new WebSocket(wsuri);
       this.websock.onmessage = this.websocketOnMessage;
       this.websock.onopen = this.websocketOnOpen;
