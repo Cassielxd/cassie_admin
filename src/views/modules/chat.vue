@@ -1,6 +1,5 @@
 <template>
   <div class="aui-wrapper ">
-    <main class="aui-content">
       <nav class="aui-navbar">
         <div data-tauri-drag-region class="aui-navbar__body">
           <el-menu class="aui-navbar__menu mr-auto" mode="horizontal">
@@ -20,10 +19,10 @@
         </div>
       </nav>
       <JwChat-index :config="config" :showRightBox='true' scrollType="scroll" :taleList="taleList" @enter="bindEnter"
-        @clickTalk="talkEvent" width="770" height="540" v-model="inputMsg" :toolConfig="tool">
+        @clickTalk="talkEvent" :width="width" height="540" v-model="inputMsg" :toolConfig="tool">
         <JwChat-rightbox :config="rightConfig" @click="rightClick" />
       </JwChat-index>
-    </main>
+
 
   </div>
 
@@ -60,8 +59,12 @@ export default {
         listTip: '当前在线',
         notice: '【公告】这是cassie axum开源项目，供rust爱好者学习扩展思维',
         list: []
-      }
+      },
+      width:window.document.body.clientWidth
     }
+  },
+  onLoad(){
+   
   },
   mounted() {
     this.initWebSocket();
