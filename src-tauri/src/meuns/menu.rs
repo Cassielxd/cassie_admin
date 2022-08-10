@@ -42,9 +42,10 @@ pub fn menu_event(event: WindowMenuEvent) {
         _ => {}
     }
 }
+
 //托盘菜单
 pub fn init_system_tray() -> SystemTray {
-    let q = CustomMenuItem::new(QUIT.to_string(), "关闭");
+    let q = CustomMenuItem::new(QUIT.to_string(), "退出");
     let hide = CustomMenuItem::new(HIDE.to_string(), "隐藏");
     let tray_menu = SystemTrayMenu::new().add_item(q).add_native_item(SystemTrayMenuItem::Separator).add_item(hide);
     SystemTray::new().with_menu(tray_menu)
@@ -53,11 +54,13 @@ pub fn init_system_tray() -> SystemTray {
 //托盘事件处理
 pub fn system_tray_menu_event(app: &AppHandle, event: SystemTrayEvent) {
     match event {
+        //左键点击事件
         SystemTrayEvent::LeftClick { .. } => {
             let window = app.get_window("main").unwrap();
             window.show().unwrap();
             window.set_focus().unwrap();
         }
+        //菜单事件
         SystemTrayEvent::MenuItemClick { id, .. } => match id.as_str() {
             QUIT => {
                 std::process::exit(0);
@@ -68,7 +71,12 @@ pub fn system_tray_menu_event(app: &AppHandle, event: SystemTrayEvent) {
             }
             _ => {}
         },
-        _ => {}
+        ////右键事件
+        SystemTrayEvent::RightClick {.. } => {},
+        //双击事件
+        SystemTrayEvent::DoubleClick { ..} =>{},
+        _ => {},
+
     }
 }
 

@@ -31,7 +31,7 @@
   <!-- 开发环境 -->
   <% if (process.env.VUE_APP_NODE_ENV === 'dev') { %>
     <script>
-    window.SITE_CONFIG['apiURL'] = 'https://washcar.cymcar.com/admin';
+    window.SITE_CONFIG['apiURL'] = 'http://washcar.cymcar.com/admin';
     window.SITE_CONFIG['wsURL'] = 'wss://washcar.cymcar.com/ws';
     </script>
   <% } %>

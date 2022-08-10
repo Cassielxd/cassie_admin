@@ -7,11 +7,20 @@ import isPlainObject from 'lodash/isPlainObject'
 import { invoke } from '@tauri-apps/api'
 import axiosTauriAdapter from 'axios-tauri-adapter';
 
-const http = axios.create({
-  baseURL: window.SITE_CONFIG['apiURL'],
-  adapter: axiosTauriAdapter,
-  timeout: 1000 * 180
-})
+ function gethttp(){
+      if(window.__TAURI__){
+        return axios.create({
+          baseURL: window.SITE_CONFIG['apiURL'],
+          adapter: axiosTauriAdapter,
+          timeout: 1000 * 180
+        });
+      }
+      return axios.create({
+        baseURL: window.SITE_CONFIG['apiURL'],
+        timeout: 1000 * 180
+      });
+ }
+const http = gethttp();
 
 function  get_token (){
   return invoke('plugin:sqlite|get',{key:"access_token"});

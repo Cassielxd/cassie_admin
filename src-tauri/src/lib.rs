@@ -7,7 +7,7 @@ use fast_log::consts::LogSize;
 use fast_log::plugin::file_split::RollingType;
 use fast_log::plugin::packer::ZipPacker;
 use initalize::{init_config, init_db};
-use log::{Level, LevelFilter};
+use log::{LevelFilter};
 use state::Container;
 use std::time::Duration;
 
@@ -31,7 +31,7 @@ pub async fn init_context() {
 
 pub fn init_log() {
     //create log dir
-    std::fs::create_dir_all(&"logs/");
+    let _r =std::fs::create_dir_all(&"logs/");
     //initialize fast log
     fast_log::init(
         Config::new()
@@ -79,13 +79,3 @@ fn str_to_rolling(arg: &str) -> RollingType {
     }
 }
 
-fn str_to_log_level(arg: &str) -> log::Level {
-    return match arg {
-        "warn" => log::Level::Warn,
-        "error" => log::Level::Error,
-        "trace" => log::Level::Trace,
-        "info" => log::Level::Info,
-        "debug" => log::Level::Debug,
-        _ => log::Level::Info,
-    };
-}
