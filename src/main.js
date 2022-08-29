@@ -17,6 +17,9 @@ import renRegionTree from '@/components/ren-region-tree'
 import { hasPermission, getDictLabel } from '@/utils'
 import cloneDeep from 'lodash/cloneDeep'
 import JwChat from 'jwchat'
+
+import VueKonva from 'vue-konva';
+Vue.use(VueKonva)
 Vue.use(JwChat)
 
 import Tinymce from '@/components/tinymce/index.vue'
@@ -30,6 +33,11 @@ import 'xe-utils'
 import VXETable from 'vxe-table'
 import 'vxe-table/lib/index.css'
 Vue.use(VXETable)
+import VueDragResize from 'vue-drag-resize';
+import Sortable from 'vuedraggable';
+import 'vue-context/dist/css/vue-context.css';
+Vue.component('Dragger', VueDragResize);
+Vue.component('Sortable', Sortable);
 
 Vue.config.productionTip = false
 

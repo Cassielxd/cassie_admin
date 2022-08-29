@@ -23,7 +23,8 @@ export const pageRoutes = [
   },
   { path: '/login', component: () => import('@/views/pages/login'), name: 'login', meta: { title: '登录' } },
   { path: '/jsruntime', component: () => import('@/views/modules/js-playground'), name: 'js-runtime', meta: { title: 'js-runtime' } },
-  { path: '/chat', component: () => import('@/views/modules/chat'), name: 'chat', meta: { title: 'chat' } }
+  { path: '/chat', component: () => import('@/views/modules/chat'), name: 'chat', meta: { title: 'chat' } },
+  { path: '/medical', component: () => import('@/views/modules/editor/medical'), name: 'chat', meta: { title: '病历' } }
 ]
 
 // 模块路由(基于主入口布局页面)

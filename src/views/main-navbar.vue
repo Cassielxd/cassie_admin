@@ -30,6 +30,7 @@
               <el-dropdown-item @click.native="openNew(2)">源码链接</el-dropdown-item>
               <el-dropdown-item @click.native="openNew(3)">IM</el-dropdown-item>
               <el-dropdown-item @click.native="openNew(4)">百度</el-dropdown-item>
+              <el-dropdown-item @click.native="openNew(5)">编辑器</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </el-menu-item>
@@ -108,7 +109,7 @@ export default {
           window.open("https://gitee.com/stringlxd");
           break;
         }
-        case 3: { 
+        case 3: {
           new WebviewWindow('chat', {
             resizable:false,
             fullscreen:false,
@@ -128,6 +129,17 @@ export default {
             center: true,
             width:1500,
             height:1000
+          });
+          break;
+        }
+        case 5: {
+          new WebviewWindow('编辑器', {
+            title: "编辑器",
+            url: '/#/medical',
+            center: true,
+            width:1500,
+            height:1000,
+            fileDropEnabled:false
           });
           break;
         }
