@@ -102,6 +102,7 @@ import StyleSider from './components/style-sider';
 import CustomText from './components/custom-text';
 import CustomVideo from './components/custom-video';
 import CustomTable from './components/custom-table';
+import CustomImage from './components/custom-image';
 // 右键菜单
 import ContextMenu from 'vue-context';
 // 静态配置
@@ -118,6 +119,7 @@ export default {
     CustomText,
     CustomVideo,
     CustomTable,
+    CustomImage,
     ContextMenu,
     StyleSider,
   },

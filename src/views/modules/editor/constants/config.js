@@ -1,5 +1,7 @@
 import * as dft from './default';
 import * as styleFormConfig from './style-form-config';
+import { IMAGE_DATA } from './default'
+import { IMAGE } from './style-form-config'
 
 // 组件列表的配置项
 export const WIDGET_LIST = [
@@ -22,9 +24,17 @@ export const WIDGET_LIST = [
   {
     type: 'table',
     component: 'custom-table',
-    label: '表单',
+    label: '列表',
     default: dft.TABLE_DATA,
     styles: dft.TABLE_STYLE,
     styleForm: styleFormConfig.TABLE,
+  },
+  {
+    type: 'image',
+    component: 'custom-image',
+    label: '图片',
+    default: dft.IMAGE_DATA,
+    styles: dft.IMAGE_STYLE,
+    styleForm: styleFormConfig.IMAGE,
   },
 ];

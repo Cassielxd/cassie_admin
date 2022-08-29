@@ -29,3 +29,7 @@ export const TABLE = [
     component: 'el-switch',
   }
 ];
+
+export const IMAGE = [
+
+];

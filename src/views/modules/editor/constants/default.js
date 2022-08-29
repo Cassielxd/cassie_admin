@@ -74,3 +74,16 @@ export const TABLE_STYLE = {
     }
   ]
 };
+
+
+// 视频默认数据
+export const IMAGE_DATA = {
+  w: 400,
+  h: 300,
+  value: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+};
+
+// 视频默认样式
+export const IMAGE_STYLE = {
+
+};

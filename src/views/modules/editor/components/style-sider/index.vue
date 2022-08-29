@@ -1,6 +1,6 @@
 <template>
   <el-tabs type="card" v-model="edit">
-    <el-tab-pane label="样式" name="style">
+    <el-tab-pane label="属性" name="style">
       <el-form
           v-if="current"
           :model="styles"
@@ -16,10 +16,11 @@
               :is="formItem.component"
           />
         </el-form-item>
-        <el-form-item>
+<!--        <el-form-item>
           <el-button @click="$emit('change', current.id, styles)">保存</el-button>
-        </el-form-item>
+        </el-form-item>-->
       </el-form>
+
     </el-tab-pane>
     <el-tab-pane label="列信息" name="column" v-if="form.type =='table'">
       <vxe-button icon="vxe-icon-square-plus" @click="insertEvent()">新增</vxe-button>
