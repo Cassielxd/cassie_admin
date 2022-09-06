@@ -1,6 +1,6 @@
 <template>
   <el-container class="aui-content">
-    <el-aside width="200px" >
+    <el-aside width="300px">
       <el-tabs type="card" v-model="siderType">
         <el-tab-pane label="组件" name="widget">
           <!-- 组件列表 -->
@@ -13,13 +13,17 @@
           <!-- 图层列表 -->
           <sortable v-model="list" @change="onSortChange">
             <transition-group>
-              <div
+              <el-tag
                   class="layer"
+                  style="border-radius: 0px"
                   v-for="item in list"
                   :key="item.id"
+                  type="info"
+                  effect="plain"
+                  size="medium"
               >
                 {{ item.label }}
-              </div>
+              </el-tag>
             </transition-group>
           </sortable>
         </el-tab-pane>
@@ -30,29 +34,30 @@
     <el-container>
       <el-header>编辑器</el-header>
         <div
-            class="panel"
+            style="height: 100%; width: 100%; border: 1px solid #917a7a; position: relative;margin: 0 auto"
             ref="panel"
             @dragover.prevent
             @drop="onDrop"
             @mousedown="onPanelMouseDown"
-            @mousemove="onPanelMouseMove"
-            @mouseup="onPanelMouseUp"
         >
-          <dragger
+          <vdr
               v-for="(item, i) in list"
-              :key="item.id"
-              ref="widget"
-              class="box"
               :x="item.x"
               :y="item.y"
               :z="item.z"
               :w="item.w"
               :h="item.h"
-              :isActive="item.focused"
+              :debug="false"
+              :active="item.focused"
+              :snap="true"
+              :snapTolerance="20"
+              ref="widget"
+              :parent="true"
+              @refLineParams="getRefLineParams"
               @contextmenu.native.prevent="onContextMenuOpen($event, item)"
-              @clicked="onFocus(item)"
-              @mouseup.native="onWidgetMouseUp(i)"
-              @dragging="(info) => onWidgetDrag(info, item.id)"
+              @dragging="(x, y)=>onDragStartCallback(x, y,item)"
+              @resizing="(x, y, width, height)=>onResize(x, y, width, height,item)"
+              @mousedown.native.stop ="onFocus(item)"
           >
             <component
                 class="inner-widget"
@@ -61,29 +66,37 @@
                 :styles="item.styles"
                 @drop.native.stop="onDrop($event, i)"
             />
-          </dragger>
-        </div>
-        <context-menu ref="contextMenu">
-          <li>
-            <a href="#" @click.prevent="onLayerTop">置顶</a>
-          </li>
-          <li>
-            <a href="#" @click.prevent="onLayerBottom">置底</a>
-          </li>
-          <li>
-            <a href="#" @click.prevent="onLayerUp">上移图层</a>
-          </li>
-          <li>
-            <a href="#" @click.prevent="onLayerDown">下移图层</a>
-          </li>
-          <li>
-            <a href="#" @click.prevent="onLayerRemove">删除</a>
-          </li>
-        </context-menu>
 
-      <el-footer>Footer</el-footer>
+          </vdr>
+          <!--辅助线-->
+          <span class="ref-line v-line"
+                v-for="item in vLine"
+                :key="item.id"
+                v-show="item.display"
+                :style="{ left: item.position, top: item.origin, height: item.lineLength}"
+          />
+          <span class="ref-line h-line"
+                v-for="item in hLine"
+                :key="item.id"
+                v-show="item.display"
+                :style="{ top: item.position, left: item.origin, width: item.lineLength}"
+          />
+          <!--辅助线END-->
+        </div>
+
+      <context-menu ref="contextMenu">
+        <li>
+          <a href="#" @click.prevent="onLayerTop">置顶</a>
+        </li>
+        <li>
+          <a href="#" @click.prevent="onLayerBottom">置底</a>
+        </li>
+        <li>
+          <a href="#" @click.prevent="onLayerRemove">删除</a>
+        </li>
+      </context-menu>
     </el-container>
-    <el-aside width="350px">
+    <el-aside width="400px">
       <style-sider
           :current="current"
           :form="currentForm"
@@ -104,10 +117,12 @@ import CustomVideo from './components/custom-video';
 import CustomImage from './components/custom-image';
 // 右键菜单
 import ContextMenu from 'vue-context';
+
+
 // 静态配置
 import * as CONFIG from './constants/config';
 import { cloneDeep } from 'lodash';
-let currentId = 0;
+let currentId = 1;
 let widgetX = 0;
 let widgetY = 0;
 let currentWidget = null;
@@ -123,7 +138,9 @@ export default {
   },
   data () {
     return {
-
+      presetLine: [{ type: 'l', site: 100 }, { type: 'v', site: 200 }],
+      vLine: [],
+      hLine: [],
       siderType: 'widget',
       list: [],
       widgetList: CONFIG.WIDGET_LIST,
@@ -145,71 +162,34 @@ export default {
     },
   },
   methods: {
-
-    // 元素是否在框内
-    isItemInFrame (item) {
-      return !(
-          item.y > this.frame.y + this.frame.h ||
-          item.x > this.frame.x + this.frame.w ||
-          this.frame.y > item.y + item.h ||
-          this.frame.x > item.x + item.w
-      );
+    onResize: function (x, y, width, height,item) {
+      item.x = x
+      item.y = y
+      item.w = width
+      item.h = height
     },
+    onDragStartCallback(x, y,item){
+      item.x =x;
+      item.y =y;
+    },
+    getRefLineParams (params) {
+
+      const { vLine, hLine } = params
+      let id = 0
+      this.vLine = vLine.map(item => {
+        item['id'] = ++id
+        return item
+      })
+      this.hLine = hLine.map(item => {
+        item['id'] = ++id
+        return item
+      })
+    },
+
     onPanelMouseDown (e) {
       this.list.forEach((item) => {
         item.focused = false;
       });
-    },
-    onPanelMouseMove (e) {
-
-      if (this.multiable) {
-        return;
-      }
-
-    },
-    // 框选结束
-    onPanelMouseUp () {
-
-    },
-    onWidgetMouseUp (i) {
-      const current = this.list[i]; // x, y, w, h
-      const rect = this.$refs.widget[i].rect; // left, top, width, height
-      if (!(current.x === rect.left && current.y === rect.top && current.w === rect.width && current.h === rect.height)) {
-
-      }
-    },
-    setNewList (newList) {
-
-      function updateItem (item, newItem) {
-        item.x = newItem.x;
-        this.$nextTick(() => {
-          item.y = newItem.y;
-          this.$nextTick(() => {
-            item.w = newItem.w;
-            this.$nextTick(() => {
-              item.h = newItem.h;
-            });
-          });
-        });
-      }
-
-      // to fix
-      for (const newItem of newList) {
-        const item = this.list.find(item => item.id === newItem.id);
-        item && updateItem.call(this, item, newItem);
-      }
-
-    },
-    // 当拖拽时，显示对齐线
-    onWidgetDrag (info, id) {
-      // 1. 拿当前的x
-      const {
-        left: x,
-        // top: y,
-        width: w,
-      } = info;
-
-
     },
     // 当图层样式改变时
     onStyleChange (id, newStyles) {
@@ -219,32 +199,6 @@ export default {
         }
         return item;
       });
-    },
-    onKeyDown (e) {
-      e.preventDefault();
-      switch (e.key) {
-        case 'Shift':
-          this.multiable = true;
-          break;
-
-        default:
-          break;
-      }
-    },
-    onKeyUp (e) {
-      e.preventDefault();
-      switch (e.key) {
-        case 'Shift':
-          this.multiable = false;
-          break;
-
-        default:
-          break;
-      }
-      // ctrl + s 保存
-      if (e.ctrlKey && e.key === 's') {
-        this.save();
-      }
     },
     // 保存
     async save () {
@@ -276,50 +230,6 @@ export default {
       }
       return minZ;
     },
-    // 移除图层
-    onLayerRemove () {
-      this.list = this.list.filter(item => !item.focused);
-      this.sortList();
-    },
-    // 上移图层
-    onLayerUp () {
-      const currentItem = this.list.find(item => item.focused);
-      if (!this.findTopLayerZ(currentItem)) {
-        return;
-      }
-      // 楼上的
-      const upstairs = this.list.find(item => item.z === currentItem.z + 1 && item.id !== currentItem.id);
-      // 如果找到楼上的 就让楼上搬下来
-      upstairs && (upstairs.z--);
-      currentItem.z++;
-      this.sortList();
-    },
-    // 下移图层
-    onLayerDown () {
-      const currentItem = this.list.find(item => item.focused);
-      if (this.findBottomLayerZ(currentItem) === false) {
-        return;
-      }
-      currentItem.z--;
-      // 楼下的
-      const downstairs = this.list.find(item => item.z === currentItem.z && item.id !== currentItem.id);
-      // 如果找到楼下的 就让楼下搬上来
-      downstairs && (downstairs.z++);
-
-      console.log(currentItem, downstairs);
-      this.sortList();
-    },
-    // 置顶
-    onLayerTop () {
-      const currentItem = this.list.find(item => item.focused);
-      const maxZ = this.findTopLayerZ(currentItem);
-      if (!maxZ) {
-        return;
-      }
-      currentItem.z = maxZ + 1;
-      this.sortList();
-    },
-    // 置底
     onLayerBottom () {
       const currentItem = this.list.find(item => item.focused);
       const minZ = this.findBottomLayerZ(currentItem);
@@ -337,16 +247,26 @@ export default {
       }
       this.sortList();
     },
+    onLayerTop () {
+      const currentItem = this.list.find(item => item.focused);
+      const maxZ = this.findTopLayerZ(currentItem);
+      if (!maxZ) {
+        return;
+      }
+      currentItem.z = maxZ + 1;
+      this.sortList();
+    },
+    // 移除图层
+    onLayerRemove () {
+      this.list = this.list.filter(item => !item.focused);
+      this.sortList();
+    },
     // 让当前项获取焦点 其他项失去焦点
     onFocus (currentItem) {
-      if (this.multiable) {
-        currentItem.focused = true;
-      } else {
         this.list = this.list.map(item => {
           item.focused = item.id === currentItem.id;
           return item;
         });
-      }
     },
     // 右键菜单打开事件
     onContextMenuOpen (e, item) {
@@ -382,6 +302,7 @@ export default {
         type: currentWidget.type, // 新增组件的类型
         styles: cloneDeep(currentWidget.styles), // 新增组件的类型
       };
+
       this.list.push(newItem);
       this.onFocus(newItem);
       this.sortList();
@@ -398,14 +319,9 @@ export default {
     },
   },
   mounted () {
-
-    document.addEventListener('keyup', this.onKeyUp);
-    document.addEventListener('keydown', this.onKeyDown);
   },
 
   beforeDestroy () {
-    document.removeEventListener('keyup', this.onKeyUp);
-    document.removeEventListener('keydown', this.onKeyDown);
   },
 }
 </script>
@@ -440,27 +356,6 @@ body > .el-container {
 .el-container:nth-child(7) .el-aside {
   line-height: 320px;
 }
-
-
-.panel {
-  flex: 1;
-  background: #f6f6f6;
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-.widget {
-  width: 100px;
-  height: 100px;
-  font-size: 24px;
-  text-align: center;
-  line-height: 100px;
-  margin: 24px;
-}
-.box {
-  outline: 1px solid blue;
-  position: absolute;
-}
 .inner-widget {
   height: 100%;
   width: 100%;
@@ -468,23 +363,8 @@ body > .el-container {
 .layer {
   width: 100%;
   height: 50px;
-  background: #fff;
 }
 .layer:hover {
   background: #e9e9e9;
-}
-.standard-line {
-  height: 100%;
-  width: 5px;
-  background: rgba(255, 0, 0, 0.211);
-  position: absolute;
-  left: 200px;
-}
-.standard-line.correct {
-  background: red;
-}
-#frame {
-  position: absolute;
-  outline: 2px dashed red;
 }
 </style>

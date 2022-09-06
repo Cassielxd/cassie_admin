@@ -18,6 +18,16 @@ import { hasPermission, getDictLabel } from '@/utils'
 import cloneDeep from 'lodash/cloneDeep'
 import JwChat from 'jwchat'
 
+import vdr from 'vue-draggable-resizable-gorkys'
+
+// 导入默认样式
+import 'vue-draggable-resizable-gorkys/dist/VueDraggableResizable.css'
+Vue.component('vdr', vdr)
+import VueRulerTool from 'vue-ruler-tool'
+
+Vue.component('vue-ruler-tool', VueRulerTool)
+
+
 import VueKonva from 'vue-konva';
 Vue.use(VueKonva)
 Vue.use(JwChat)

@@ -31,6 +31,7 @@
               <el-dropdown-item @click.native="openNew(3)">IM</el-dropdown-item>
               <el-dropdown-item @click.native="openNew(4)">百度</el-dropdown-item>
               <el-dropdown-item @click.native="openNew(5)">编辑器</el-dropdown-item>
+              <el-dropdown-item @click.native="openNew(6)">编辑器new</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </el-menu-item>
@@ -136,6 +137,18 @@ export default {
           new WebviewWindow('编辑器', {
             title: "编辑器",
             url: '/#/medical',
+            center: true,
+            width:1500,
+            height:1000,
+            fileDropEnabled:false
+          });
+          break;
+        }
+        //
+        case 6: {
+          new WebviewWindow('编辑器1', {
+            title: "编辑器1",
+            url: '/#/builder',
             center: true,
             width:1500,
             height:1000,

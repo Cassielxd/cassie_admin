@@ -16,8 +16,8 @@ export const TEXT_STYLE = {
 
 // 视频默认数据
 export const VIDEO_DATA = {
-  w: 400,
-  h: 300,
+  w: 200,
+  h: 100,
   value: 'https://cdn.theguardian.tv/webM/2015/07/20/150716YesMen_synd_768k_vp8.webm',
 };
 
@@ -78,8 +78,8 @@ export const TABLE_STYLE = {
 
 // 视频默认数据
 export const IMAGE_DATA = {
-  w: 400,
-  h: 300,
+  w: 200,
+  h: 100,
   value: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
 };
 
