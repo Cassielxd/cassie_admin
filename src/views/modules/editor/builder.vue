@@ -1,6 +1,6 @@
 <template>
   <el-container class="aui-content">
-    <el-aside width="300px">
+    <el-aside width="20%">
       <el-tabs type="card" v-model="siderType">
         <el-tab-pane label="组件" name="widget">
           <!-- 组件列表 -->
@@ -96,7 +96,7 @@
         </li>
       </context-menu>
     </el-container>
-    <el-aside width="400px">
+    <el-aside width="20%">
       <style-sider
           :current="current"
           :form="currentForm"
