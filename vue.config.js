@@ -30,7 +30,7 @@ module.exports = {
   lintOnSave: false,
   productionSourceMap: false,
   devServer: {
-    open: true,
+    open: false,
     port: 8001,
     overlay: {
       errors: false,

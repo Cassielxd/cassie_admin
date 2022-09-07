@@ -61,7 +61,6 @@
                 :active="item.focused"
                 :handles="item.handles"
                 :snap="true"
-                :snapTolerance="1"
                 ref="widget"
                 :parent="true"
                 @refLineParams="getRefLineParams"
