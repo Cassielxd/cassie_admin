@@ -67,7 +67,10 @@ Vue.use(renProcessDetail)
 Vue.prototype.$http = http
 Vue.prototype.$hasPermission = hasPermission
 Vue.prototype.$getDictLabel = getDictLabel
+// 全局混入
+import { common } from '@/mixins'
 
+Vue.mixin(common)
 // 保存整站vuex本地储存初始状态
 window.SITE_CONFIG['storeState'] = cloneDeep(store.state)
 

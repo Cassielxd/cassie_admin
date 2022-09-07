@@ -12,7 +12,7 @@ export const WIDGET_LIST = [
     default: dft.TEXT_DATA,
     styles: dft.TEXT_STYLE,
     styleForm: styleFormConfig.TEXT,
-    handles: ['tl', 'tm', 'tr', 'mr', 'br', 'bm', 'bl', 'ml'],
+    handles: [ 'mr',  'bm'],
   },
   {
     type: 'video',
@@ -21,7 +21,7 @@ export const WIDGET_LIST = [
     default: dft.VIDEO_DATA,
     styles: dft.VIDEO_STYLE,
     styleForm: styleFormConfig.VIDEO,
-    handles: ['tl', 'tm', 'tr', 'mr', 'br', 'bm', 'bl', 'ml'],
+    handles: [ 'mr',  'bm'],
   },
   {
     type: 'table',
@@ -30,7 +30,7 @@ export const WIDGET_LIST = [
     default: dft.TABLE_DATA,
     styles: dft.TABLE_STYLE,
     styleForm: styleFormConfig.TABLE,
-    handles: ['tl', 'tm', 'tr', 'mr', 'br', 'bm', 'bl', 'ml'],
+    handles: [ 'mr',  'bm'],
   },
   {
     type: 'image',
@@ -39,7 +39,7 @@ export const WIDGET_LIST = [
     default: dft.IMAGE_DATA,
     styles: dft.IMAGE_STYLE,
     styleForm: styleFormConfig.IMAGE,
-    handles: ['tl', 'tm', 'tr', 'mr', 'br', 'bm', 'bl', 'ml'],
+    handles: [ 'mr',  'bm'],
   }, {
     type: 'hline',
     component: 'custom-hline',

@@ -256,17 +256,17 @@ export default {
       item.y = y
     },
     getRefLineParams (params) {
-
       const { vLine, hLine } = params
       let id = 0
-      this.vLine = vLine.map(item => {
-        item['id'] = ++id
-        return item
-      })
-      this.hLine = hLine.map(item => {
-        item['id'] = ++id
-        return item
-      })
+        this.vLine = vLine.map(item => {
+          item['id'] = ++id
+          return item
+        })
+        this.hLine = hLine.map(item => {
+          item['id'] = ++id
+          return item
+        })
+
     },
 
     onPanelMouseDown (e) {
