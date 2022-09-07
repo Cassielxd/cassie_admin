@@ -40,13 +40,7 @@
           </el-button>
         </el-button-group>
       </el-header>
-      <div
-          :style="[divStyles,overridingStyles]"
-      >
-        <vue-ruler-tool
-            :step-length="10"
-            :parent="true"
-        >
+
           <div
               :style="[baseStyles,overridingStyles]"
               ref="panel"
@@ -65,8 +59,9 @@
                 :h="item.h"
                 :debug="false"
                 :active="item.focused"
+                :handles="item.handles"
                 :snap="true"
-                :snapTolerance="20"
+                :snapTolerance="1"
                 ref="widget"
                 :parent="true"
                 @refLineParams="getRefLineParams"
@@ -99,10 +94,6 @@
             />
             <!--辅助线END-->
           </div>
-
-        </vue-ruler-tool>
-      </div>
-
       <context-menu ref="contextMenu">
         <li>
           <a href="#" @click.prevent="onLayerTop">置顶</a>
@@ -115,7 +106,7 @@
         </li>
       </context-menu>
     </el-container>
-    <el-aside>
+    <el-aside width="400px">
       <style-sider
           :current="current"
           :form="currentForm"
@@ -134,12 +125,15 @@ import StyleSider from './components/style-sider'
 import CustomText from './components/custom-text'
 import CustomVideo from './components/custom-video'
 import CustomImage from './components/custom-image'
+import CustomVline from './components/custom-vline'
+import CustomTable from './components/custom-table'
 // 右键菜单
 import ContextMenu from 'vue-context'
 
 // 静态配置
 import * as CONFIG from './constants/config'
 import { cloneDeep } from 'lodash'
+import CustomHline from './components/custom-hline'
 
 let currentId = 1
 let widgetX = 0
@@ -154,6 +148,9 @@ export default {
     CustomImage,
     ContextMenu,
     StyleSider,
+    CustomHline,
+    CustomVline,
+    CustomTable
   },
   data () {
     return {
@@ -388,6 +385,7 @@ export default {
         component: currentWidget.component, // 新增的组件名
         type: currentWidget.type, // 新增组件的类型
         styles: cloneDeep(currentWidget.styles), // 新增组件的类型
+        handles:currentWidget.handles
       }
 
       this.list.push(newItem)

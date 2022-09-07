@@ -48,7 +48,7 @@
             <vxe-input v-model="row.width" type="text"></vxe-input>
           </template>
         </vxe-table-column>
-        <vxe-table-column title="操作" width="240">
+        <vxe-table-column title="操作" width="75">
           <template #default="{ row }">
             <vxe-button status="danger" content="直接删除" @click="deleteSelectEvent(row)"></vxe-button>
           </template>
