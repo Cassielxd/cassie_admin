@@ -33,6 +33,7 @@
               <el-dropdown-item @click.native="openNew(5)">编辑器</el-dropdown-item>
               <el-dropdown-item @click.native="openNew(6)">编辑器new</el-dropdown-item>
               <el-dropdown-item @click.native="openNew(7)">konva</el-dropdown-item>
+              <el-dropdown-item @click.native="openNew(8)">excelEditor</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </el-menu-item>
@@ -161,6 +162,17 @@ export default {
           new WebviewWindow('konvaPlayground', {
             title: "konvaPlayground",
             url: '/#/konva',
+            center: true,
+            width:1500,
+            height:1000,
+            fileDropEnabled:false
+          });
+          break;
+        }
+        case 8: {
+          new WebviewWindow('excelEditor', {
+            title: "excelEditor",
+            url: '/#/excelEditor',
             center: true,
             width:1500,
             height:1000,

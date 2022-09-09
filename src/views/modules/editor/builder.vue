@@ -52,6 +52,7 @@
             <vdr
 
                 v-for="(item, i) in list"
+                :key="item.id"
                 :x="item.x"
                 :y="item.y"
                 :z="item.z"
